@@ -13,9 +13,19 @@
         <span class="label">Twitta</span>
     </a>
 
-    <button class="button-graph-transparent">
+    <button class="button-graph-transparent graph1">
         <span class="fa fa-bar-chart-o"></span>
         <span class="label">Graph 1</span>
+    </button>
+
+    <button class="button-graph-transparent graph2">
+        <span class="fa fa-bar-chart-o"></span>
+        <span class="label">Graph 2</span>
+    </button>
+
+    <button class="button-graph-transparent graph3">
+        <span class="fa fa-bar-chart-o"></span>
+        <span class="label">Graph 3</span>
     </button>
 
     @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
@@ -36,9 +46,9 @@
 
 <div class="wrapper-search-content">
     <a href="#" id="updateChart">Update Charts</a><br /><br />
-    <div id="basicWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
-    <div id="advancedWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>    
-    <div id="sentimentChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>    
+    <div id="basicWordCountChart" style="width: 75%; height: 500px; margin: 0"></div>
+    <div id="advancedWordCountChart" style="width: 75%; height: 500px; margin: 0 ; display:none"></div>    
+    <div id="sentimentChart" style="width: 75%; height: 500px; margin: 0 ; display:none"></div>    
 
     <div class="slider-bar">
         <p>
@@ -55,7 +65,7 @@
         <!-- ko foreach: tweets -->
         <li class="keyword-tweet-list-item">
             <span class="tweet-image">
-                <img src="http://pbs.twimg.com/profile_images/428678356461449216/3xf7EhLi_normal.jpeg" />
+                <img data-bind="attr: {src:TwitterUserProfileImage}" />
             </span>
             <h4 class="tweet-username" data-bind="text: ScreenName"></h4>
             <span class="tweet-text" data-bind="text: Text"></span>
@@ -76,6 +86,27 @@
 </script>
 
 <script>
+    $(".graph1").click(function() {
+        $("#basicWordCountChart").show();
+        $("#advancedWordCountChart").hide();
+        $("#sentimentChart").hide();
+    });
+
+    $(".graph2").click(function() {
+        $("#basicWordCountChart").hide();
+        $("#advancedWordCountChart").show();
+        $("#sentimentChart").hide();
+        window.advanced.chart.yAxis[0].isDirty = true;
+        window.advanced.chart.redraw();
+    });
+
+    $(".graph3").click(function() {
+        $("#basicWordCountChart").hide();
+        $("#advancedWordCountChart").hide();
+        $("#sentimentChart").show();
+        window.sentiment.chart.series[0].setData(data,true);
+    });
+
     
     Date.prototype.addHours = function (h) {
         this.setHours(this.getHours() + h);
@@ -120,6 +151,8 @@
         var self = {};
         self.TwitterUserId = item.TwitterUserId;
         self.ScreenName = item.TwitterUserScreenName;
+        self.TwitterUserProfileImage = item.TwitterUserProfileImage;
+        console.log(self.TwitterUserProfileImage);
         self.Text = item.Text;
         debugger;
         self.CreatedDate = item.CreatedDate;
