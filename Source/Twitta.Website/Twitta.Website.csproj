@@ -273,6 +273,10 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutSite.cshtml" />
     <Content Include="Views\Home\KeepAlive.cshtml" />
+    <Content Include="Views\Applications\Create.cshtml" />
+    <Content Include="Views\Applications\Details.cshtml" />
+    <Content Include="Views\Applications\Edit.cshtml" />
+    <Content Include="Views\Applications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
