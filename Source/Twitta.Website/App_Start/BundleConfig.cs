@@ -9,7 +9,8 @@ namespace Twitta.Website
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -28,7 +29,8 @@ namespace Twitta.Website
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Resources/CSS/site.css",
-                      "~/Resources/CSS/font-awesome.css"));
+                      "~/Resources/CSS/font-awesome.css",
+                      "~/Content/themes/base/jquery-ui.css"));
         }
     }
 }
