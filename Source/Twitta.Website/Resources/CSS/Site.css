@@ -91,58 +91,49 @@ h1,h2,h3,h4,h5 {
 }
 
 
+
 /* SITE STYLES */
 
 
 
-.wrapper-home-link {
-    position: fixed;
-    top: 1em;
-    left: 50%;
-    margin-left: -4em;
-    width: 8em;
-    text-align: center;
+/* TWITTA HOMEPAGE CONTENT */
+
+
+
+[class*="home-wrapper"] {
+    background: url('../Content/twitta-bg.jpg') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: auto;
 }
 
-    .twitta-logo {
-        display: block;
-        margin: 0 auto;
-        /* background: url(../Content/go-logo-png.png); */
-        background-image: url(../Content/twitta-logo.svg), none;
-        background-size: 5em 5.125em;
-        width: 5em;
-        height: 5.125em;
+    [class*="home-wrapper"]:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 60%;
+        left: 0;
+        background: rgba(41,128,185,.75);
     }
 
-    .twitta-text {
-        display: block;
-        vertical-align: top;
-        font-family: 'Russo One', sans-serif;
-        font-size: 2em;
-        line-height: 1.25em;
-        color: #353535;
-    }      
+    .wrapper-twitta-logo {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        background: #fff;
+        border-radius: 50%;
+        width: 8em;
+        height: 8em;
+    }
 
-.site-settings {
-    position: fixed;
-    top: 3rem;
-    right: 2rem;
-    font-size: 2.5em;
-    color: #b8b8b8;
-}
-
-.filter {
-    padding: 1em 0;
-    background: #f5f5f5;
-    box-shadow: 0 7px 0 -5px rgba(0,0,0,.5);
-}
+        .twitta-logo {
+            background-image: url(../Content/twitta-logo.svg), none;
+            background-size: 5em 5.125em;
+            width: 5em;
+            height: 5.125em;
+        }
 
 
 
-/* TWITTA CORE CONTENT */
-
-
-
-[class*="wrapper"] {
-
-}
+/* TWITTA SEARCH RESULT PAGE CONTENT */

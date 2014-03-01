@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[TwitterApps](
  CONSTRAINT [PK_ApiApplications] PRIMARY KEY CLUSTERED 
 (
 	[ApiApplicationId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -35,7 +35,7 @@ CREATE TABLE [dbo].[Searches](
  CONSTRAINT [PK_Searches] PRIMARY KEY CLUSTERED 
 (
 	[SearchId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[ApiAccessHistoryLogs](
  CONSTRAINT [PK_ApiAccessHistoryLogs] PRIMARY KEY CLUSTERED 
 (
 	[ApiAccessHistoryLogId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -71,7 +71,7 @@ CREATE TABLE [dbo].[HashTags](
  CONSTRAINT [PK_HashTags] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -84,7 +84,7 @@ CREATE TABLE [dbo].[IgnoreWords](
  CONSTRAINT [PK_IgnoreWords] PRIMARY KEY CLUSTERED 
 (
 	[IgnoreWordId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -100,7 +100,7 @@ CREATE TABLE [dbo].[SearchHistoryLogs](
  CONSTRAINT [PK_SearchHistoryLogs] PRIMARY KEY CLUSTERED 
 (
 	[SearchHistoryLogId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -123,7 +123,7 @@ CREATE TABLE [dbo].[TwitterStatusesHashTags](
 (
 	[TwitterStatusId] ASC,
 	[HashTagId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
@@ -147,7 +147,7 @@ CREATE TABLE [dbo].[Users](
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[UserId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
