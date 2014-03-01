@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using AutoMapper;
 using TweetSharp;
 using Twitta.Website.Logic;
-using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
 using Twitta.Website.RepositoryInterfaces;
 
@@ -39,9 +38,6 @@ namespace Twitta.Website.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var sentence = "Marko sucks at programming.";
-            var analyzer = new SentimentAnalyzer();
-            ViewBag.Sentiment = analyzer.Analyze(sentence);
             return View(_searchLogic.GetItems());
         }
 
