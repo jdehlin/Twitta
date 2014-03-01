@@ -244,7 +244,7 @@ h1,h2,h3,h4,h5 {
         line-height: 3.5em;
     }
 
-        [class*="header-home"] .twitta-logo {
+        [class*="home-button"] .twitta-logo {
             background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 1.875em 1.975em;
             width: 1.875em;
