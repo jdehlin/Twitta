@@ -90,8 +90,8 @@
             serieses.push({
                 type: 'line',
                 name: data.words[i],
-                pointInterval: 3600 * 1000,
-                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
+                pointInterval: data.timeInterval,
+                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0), // TODO: Set this to the actual start of the range
                 data: data.counts[i]
             });
         }

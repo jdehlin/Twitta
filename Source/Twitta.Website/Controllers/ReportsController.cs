@@ -34,10 +34,14 @@ namespace Twitta.Website.Controllers
         //
         // GET: /Reports/BasicWordCountData/5
 
-        public JsonResult BasicWordCountData(int id)
+        public JsonResult BasicWordCountData(int id, DateTime? startRange, DateTime? endRange)
         {
+            if (startRange == null)
+                startRange = DateTime.UtcNow.AddHours(-4);
+            if (endRange == null)
+                endRange = DateTime.UtcNow;
             var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetList(id);
+            var tweets = _tweetsLogic.GetTweetsInDateRange(id, startRange.Value, endRange.Value);
             var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).OrderByDescending(w => w.Value).Take(20).ToList();
             var dataModel = new { words = words.Select(w => w.Key), counts = words.Select(w => w.Value) };
             return new JsonResult
@@ -76,19 +80,7 @@ namespace Twitta.Website.Controllers
                 counts.Add(innerCounts);
                 inset = 0;
             }
-            //for (var i = 0; i < interval; i++)
-            //{
-            //    var intervalStartRange = startRange.Value.AddMilliseconds(inset);
-            //    var intervalEndRange = startRange.Value.AddMilliseconds(inset + timeInterval);
-            //    texts = tweets.Where(t => t.CreatedDate > intervalStartRange && t.CreatedDate < intervalEndRange).Select(t => t.Text).ToList();
-            //    var wordsDict = processor.WordCountStats(texts);
-            //    var innerCounts = new List<int>();
-            //    foreach (var category in categories)
-            //        innerCounts.Add(wordsDict[category]);
-            //    counts.Add(innerCounts);
-            //    inset += timeInterval;
-            //}
-            var dataModel = new { words = categories, counts };
+            var dataModel = new { words = categories, counts, timeInterval };
             return new JsonResult
             {
                 Data = dataModel,
