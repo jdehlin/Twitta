@@ -27,8 +27,6 @@
         <span class="fa fa-bar-chart-o"></span>
         <span class="label">Graph 3</span>
     </button>
-
-    @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
 </div>
 
 <div class="wrapper-keywords" id="keywordResults">
@@ -59,7 +57,7 @@
         <div id="slider-range" style="width:50%"></div>
     </div>
 
-    <h2 class="title-keyword-results">Keyword Results</h2>
+    <h2 class="title-keyword-results"><a id="KeywordList" name="KeywordList">Keyword Results</a></h2>
 
     <ul id="expandedTweetResults" class="keyword-tweets">
         <!-- ko foreach: tweets -->
@@ -161,6 +159,8 @@
 
         self.getExpandedTweets = function () {
             viewModel.loadTweets(self.getExpandedTweetsUrl);
+            var target = $('#KeywordList');
+            $('body,html').animate({ scrollTop: target.offset().top - 160 }, 'slow');
         };
 
         return self;
