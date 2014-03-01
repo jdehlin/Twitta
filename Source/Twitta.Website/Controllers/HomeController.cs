@@ -93,7 +93,7 @@ namespace Twitta.Website.Controllers
                 i.TwitterUserId,
                 TwitterUserScreenName = i.User.ScreenName,
                 i.Text,
-                i.CreatedDate,
+                CreatedDate = i.CreatedDate.ToString("MM/dd/yy H:mm tt"),
                 id = i.Id.ToString()
             });
 

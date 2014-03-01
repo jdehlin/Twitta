@@ -33,6 +33,10 @@ input[type="submit"] {
     text-decoration: none;
 }
 
+    [class*="button"]:hover {
+        text-decoration: none;
+    }
+
     [class*="button"][class*="-submit"] {
         background: #27ae60;
     }
@@ -53,6 +57,10 @@ input[type="submit"] {
         background: transparent;
         color: #444;
     }
+
+        [class*="button"][class*="-transparent"]:hover {
+            background: rgba(0,0,0,.1);
+        }
 
     [class*="button"] span {
         display: inline-block;
@@ -391,6 +399,11 @@ h1,h2,h3,h4,h5 {
         line-height: 3.5em;
     }
 
+        [class*="header"] [class*="home-button"]:hover {
+            background: #4B9FD6;
+            text-decoration: none;
+        }
+
     [class*="header"] [class*="button"] {
         display: inline-block;
         line-height: 3.5em;
@@ -429,6 +442,10 @@ h1,h2,h3,h4,h5 {
             color: #fff;
         }
 
+h2.title-keyword-results {
+    padding: 1em 0;
+}
+
 .wrapper-keywords {
     position: fixed;
     top: 3.5em;
@@ -450,18 +467,87 @@ h1,h2,h3,h4,h5 {
             position: relative;
         }
 
-            .link-keyword {
-                padding: 0 4em 0 1em;
-                line-height: 2em;
+            .keyword-list-item:hover {
+                background: #ddd;
             }
+
+            .link-keyword {
+                display: block;
+                padding: 0 3em 0 1em;
+                line-height: 2em;
+                white-space: nowrap;
+            }
+
+                .link-keyword:hover {
+                    text-decoration: none;
+                }
 
             .link-keyword-number {
                 position: absolute;
-                top: .5em;
-                right: 1em;
+                top: 0;
+                right: 0;
+                display: block;
+                margin-right: 1em;
+                background: #f5f5f5;
+                width: 1.5em;
+                height: 2em;
+                line-height: 2em;
+                text-align: right;
             }
+
+                .keyword-list-item:hover .link-keyword-number {
+                    background: #ddd;
+                }
 
 .wrapper-search-content {
     margin: 5.5em 3.5em 3.5em 16em;
 
 }
+
+.keyword-tweets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .keyword-tweet-list-item {
+        overflow: hidden;
+        margin-bottom: .75em;
+        padding: 1em;
+        background: #f5f5f5;
+        box-shadow: 0 2px 0 0 rgba(87,200,239,.75);
+    }
+
+        .keyword-tweet-list-item span {
+            display: block;
+            padding: 0 0 1em 0;
+        }
+
+        .tweet-username {
+            padding: 0 0 .5em 0;
+            color: #2980b9;
+        }
+
+        .tweet-text {
+            font-size: .875em;
+        }
+
+        .tweet-date {
+            font-size: .625em;
+        }
+
+        .link-to-tweet {
+            display: block;
+            float: left;
+            padding: 0 1em;
+            background: #2980b9;
+            line-height: 2em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+            .link-to-tweet:hover {
+                background: #4B9FD6;
+                color: #fff;
+                text-decoration: none;
+            }
