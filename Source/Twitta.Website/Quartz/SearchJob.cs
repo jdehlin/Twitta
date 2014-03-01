@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Hosting;
 using Quartz;
+using StructureMap;
+using Twitta.Website.Logic;
 
 namespace Twitta.Website.Quartz
 {
@@ -12,10 +14,11 @@ namespace Twitta.Website.Quartz
     {
         private readonly object _lock = new object();
         private bool _shuttingDown = false;
+        private readonly ISearchJobLogic _searchJobLogic = ObjectFactory.GetInstance<ISearchJobLogic>();
 
         public void Execute(IJobExecutionContext context)
         {
-            //TODO - implement calling the actua repo/logic methods
+            _searchJobLogic.RunAllSearches();
         }
 
         public void Stop(bool immediate)
