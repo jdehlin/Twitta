@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using StackExchange.Profiling;
 using TweetSharp;
 using Twitta.Website.Logic;
 using Twitta.Website.Models;
@@ -47,11 +48,32 @@ namespace Twitta.Website.Controllers
         }
         public ActionResult SearchResults(int id, DateTime? startDate)
         {
-            startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
-            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
-            var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
-                .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
-                .Select(i => new { word = i.Key, total = i.Value, searchId = id});
+            //List<Tweet> tweets;
+            string tweets;
+            IEnumerable<dynamic> fancyWordStats;
+            var profiler = MiniProfiler.Current; // it's ok if this is null
+            using (profiler.Step("1"))
+            {
+                  startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
+            }
+            using (profiler.Step("2"))
+            {
+             //tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
+             tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime) startDate, DateTime.UtcNow);
+            }
+            using (profiler.Step("3"))
+            {
+                //var temp = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList());
+                var temp = _tweetProcessor.WordCountStats(tweets);
+                profiler.Step("4");
+                var temp2 = temp.Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value);
+                profiler.Step("5");
+                fancyWordStats=temp2.Select(i => new { word = i.Key, total = i.Value, searchId = id});  
+                profiler.Step("6");
+            }
+
+    
+    
             return View("SearchResults", fancyWordStats);
         }
 
