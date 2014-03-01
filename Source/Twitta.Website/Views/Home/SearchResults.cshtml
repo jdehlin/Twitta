@@ -89,10 +89,11 @@
     function tweet(item) {
         var self = {};
         self.TwitterUserId = item.TwitterUserId;
+        self.TwitterUserScreenName = item.TwitterUserScreenName;
         self.Text = item.Text;
         self.CreatedDate = item.CreatedDate;
         self.Id = item.Id;
-        self.url = "https://twitter.com/" + self.TwitterUserId + "/status/" + self.Id;
+        self.url = "https://twitter.com/" + self.TwitterUserScreenName + "/status/" + self.Id;
         return self;
     }
 
