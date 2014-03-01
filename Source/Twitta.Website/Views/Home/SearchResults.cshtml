@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model List<dynamic>
 
 @{
     Layout = "~/Views/Shared/_LayoutSite.cshtml";
@@ -35,6 +35,11 @@
 </div>
 
 <div class="wrapper-search-content">
+    <a href="#" id="updateChart">Update Charts</a><br /><br />
+    <div id="basicWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+    <div id="advancedWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>    
+    <div id="sentimentChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>    
+
     <p>
         <label for="amount">Range:</label>
         <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
@@ -55,27 +60,9 @@
     </ul>
 
 </div>
-<script>
-    $(function () {
-        var blockAfterTimeout;
-        $("#slider-range").slider({
-            range: true,
-            min: -24,
-            max: 0,
-            values: [-6, 0],
-            slide: function (event, ui) {
-                clearTimeout(blockAfterTimeout);
-                blockAfterTimeout = setTimeout(function () { console.log('science!'); }, 500);
-                if (ui.values[0] >= ui.values[1]) return false;
-                
-                $("#amount").val(-ui.values[0] + " hours to " + -ui.values[1] + " hours ago");
-            }
-        });
-        $("#amount").val(-$("#slider-range").slider("values", 0) + " hours to " + (-$("#slider-range").slider("values", 1)) + " hours ago");
-    });
-</script>
 
 <script>
+    
     function viewModel(model) {
         var self = {};
         self.words = ko.observableArray();
@@ -124,4 +111,346 @@
 
     var viewModel = new viewModel(@Html.Raw(Json.Encode(Model)));
     ko.applyBindings(viewModel);
+
+    var BasicWordCountChart = function(data) {
+        var self = {};
+        var options = {
+            chart: {
+                renderTo: 'basicWordCountChart',
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subTitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: data.words,
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Word Count'
+                }
+            },
+            tooltip: {
+                formater: function() {
+                    return "banana";
+                },
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [
+                {
+                    data: data.counts
+                }
+            ]
+        };
+        self.chart = new Highcharts.Chart(options);
+
+        self.updateGraph = function(start, end) {
+            $.ajax({
+                url: '@Url.Action("BasicWordCountData", "Reports", new { id = ViewBag.SearchId })',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    startRange: start,
+                    endRange: end
+                }),
+                success: function(response) {
+                    console.log('getting basic graph');
+                    self.chart.xAxis[0].setCategories(response.words);
+                    self.chart.series[0].setData(response.counts);
+                }
+            });
+        };
+
+        setInterval(function() {
+            //self.updateGraph(window.start, window.end);
+        }, 10000);
+
+        return self;
+    };
+
+    var AdvancedWordCountChart = function(data) {
+        var self = {};
+
+        var serieses = prepareData(data);
+        var options = {
+            chart: {
+                renderTo: 'advancedWordCountChart',
+                zoomType: 'x'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime',
+                maxZoom: 3600 * 1000,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Word Count'
+                }
+            },
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: serieses
+        };
+        self.chart = new Highcharts.Chart(options);
+
+        self.updateGraph = function() {
+            $.ajax({
+                url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 6 })',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    startRange: start,
+                    endRange: end
+                }),
+                success: function(response) {
+                    console.log('getting advanced graph');
+                    //self.chart.xAxis[0].setCategories(response.words);
+                    for (var i = 0; i < response.words.length; i++) {
+                        window.tempChart = self.chart;
+                        self.chart.series[i].name = response.words[i];
+                        self.chart.series[i].setData(response.counts[i]);
+                    }
+                }
+            });
+        };
+
+        // TODO make this a time interval
+        //$('#updateChart').on('click', function() {
+        //    updateGraph();
+        //    return false;
+        //});
+
+        function prepareData(data) {
+            var temp = new Array();
+            for (var i = 0; i < data.counts.length; i++) {
+                temp.push({
+                    type: 'line',
+                    name: data.words[i],
+                    pointInterval: data.timeInterval,
+                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    data: data.counts[i]
+                });
+            }
+            return temp;
+        }
+
+        return self;
+    };
+
+    var SentimentChart = function(data) {
+        var self = {};
+
+        var serieses = prepareData(data);
+        var options = {
+            chart: {
+                renderTo: 'sentimentWordCountChart',
+                zoomType: 'x'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime',
+                maxZoom: 3600 * 1000,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Word Count'
+                }
+            },
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: serieses
+        };
+        self.chart = new Highcharts.Chart(options);
+
+        self.updateGraph = function() {
+            $.ajax({
+                url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 6 })',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    startRange: start,
+                    endRange: end
+                }),
+                success: function(response) {
+                    console.log('getting sentiment graph');
+                    //self.chart.xAxis[0].setCategories(response.words);
+                    for (var i = 0; i < response.words.length; i++) {
+                        window.tempChart = self.chart;
+                        self.chart.series[i].name = response.words[i];
+                        self.chart.series[i].setData(response.counts[i]);
+                    }
+                }
+            });
+        };
+
+        // TODO make this a time interval
+        //$('#updateChart').on('click', function() {
+        //    updateGraph();
+        //    return false;
+        //});
+
+        function prepareData(data) {
+            var temp = new Array();
+            for (var i = 0; i < data.counts.length; i++) {
+                temp.push({
+                    type: 'line',
+                    name: data.words[i],
+                    pointInterval: data.timeInterval,
+                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    data: data.counts[i]
+                });
+            }
+            return temp;
+        }
+
+        return self;
+    };
+
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("BasicWordCountData", "Reports", new { id = ViewBag.SearchId })',
+        success: function (response) {
+            window.basic = BasicWordCountChart(response);
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 8 })',
+        success: function(response) {
+            window.advanced = AdvancedWordCountChart(response);
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 8 })',
+        success: function(response) {
+            window.sentiment = SentimentChart(response);
+        }
+    });
+
+    $('#updateChart').on('click', function() {
+        basic.updateGraph();
+        advanced.updateGraph();
+        sentiment.updateGraph();
+        return false;
+    });
+
+    var blockAfterTimeout;
+    $("#slider-range").slider({
+        range: true,
+        min: -6,
+        max: 0,
+        values: [-4, 0],
+        slide: function (event, ui) {
+            clearTimeout(blockAfterTimeout);
+            blockAfterTimeout = setTimeout(function() {
+                window.start = new Date(new Date().setHours(new Date().getHours() + ui.values[0]));
+                window.end = new Date(new Date().setHours(new Date().getHours() + ui.values[1]));
+                window.basic.updateGraph(window.start, window.end);
+                window.advanced.updateGraph(window.start, window.end);
+                window.sentiment.updateGraph(window.start, window.end);
+            }, 500);
+            if (ui.values[0] >= ui.values[1]) return false;
+                
+            $("#amount").val(-ui.values[0] + " hours to " + -ui.values[1] + " hours ago");
+        }
+    });
+    $("#amount").val(-$("#slider-range").slider("values", 0) + " hours to " + (-$("#slider-range").slider("values", 1)) + " hours ago");
+
 </script>
