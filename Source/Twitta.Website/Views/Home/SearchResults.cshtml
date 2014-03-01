@@ -11,10 +11,12 @@
         <span class="label">Twitta</span>
     </a>
 
-    <button class="button-graph">
+    <button class="button-graph-transparent">
         <span class="fa fa-bar-chart-o"></span>
         <span class="label">Graph 1</span>
     </button>
+
+    @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
 </div>
 
 <div class="wrapper-keywords">
@@ -28,22 +30,26 @@
     </ul>
 </div>
 
-<h2>Search Results</h2>
+<div class="wrapper-search-content">
 
-<ul id="expandedTweetResults">
-    <!-- ko foreach: tweets -->
-    <li>
-        <ul>
-            <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
-            <li data-bind="text: 'User.Text:' + Text"></li>
-            <li data-bind="text: 'User.Date:' + CreatedDate"></li>
-            <li data-bind="text: 'ID:' + Id"></li>
-            <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
-        </ul>
-        
-    </li>
-    <!-- /ko -->
-</ul>
+    <h2>Search Results</h2>
+
+    <ul id="expandedTweetResults">
+        <!-- ko foreach: tweets -->
+        <li>
+            <ul>
+                <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
+                <li data-bind="text: 'User.Text:' + Text"></li>
+                <li data-bind="text: 'User.Date:' + CreatedDate"></li>
+                <li data-bind="text: 'ID:' + Id"></li>
+                <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
+            </ul>
+
+        </li>
+        <!-- /ko -->
+    </ul>
+
+</div>
 
 <script>
     function viewModel(model) {
