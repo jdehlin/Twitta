@@ -156,7 +156,7 @@ h1,h2,h3,h4,h5 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: url('../Content/twitta-bg.jpg') no-repeat center center fixed;
+    background: url('/Resources/Content/twitta-bg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -198,7 +198,7 @@ h1,h2,h3,h4,h5 {
 
         .twitta-logo {
             margin: 1.5em auto 0 auto;
-            background-image: url(../Content/twitta-logo.svg), none;
+            background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 5em 5.125em;
             width: 5em;
             height: 5.125em;
