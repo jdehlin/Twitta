@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using StructureMap;
+using Twitta.Website.Logic;
 
 namespace Twitta.Website.Models
 {

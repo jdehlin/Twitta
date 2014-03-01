@@ -56,6 +56,8 @@
     <Content Include="scripts\AliaSQL.exe" />
     <Content Include="scripts\TestData\0001-Start.sql" />
     <Content Include="scripts\Update\0001-AddTestTable.sql" />
+    <Content Include="scripts\Update\0002-InitialDBScript.sql" />
+    <Content Include="scripts\Update\0003-FixForTweets.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\Create\" />

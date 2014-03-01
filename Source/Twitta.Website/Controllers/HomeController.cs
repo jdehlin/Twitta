@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using StackExchange.Exceptional;
+﻿using System.Web.Mvc;
 
 namespace Twitta.Website.Controllers
 {
-    using AutoMapper;
-    using ViewModels;
-
     public class HomeController : Controller
     {
         public HomeController()

@@ -12,8 +12,155 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Twitta.Website.Models.Database
+namespace Twitta.Website.Models
 {
+    /// <summary>
+    /// A class which represents the TwitterApps table.
+    /// </summary>
+	[Table("TwitterApps")]
+	public partial class TwitterApp : BaseModel
+	{
+		[Key]
+		public virtual int ApiApplicationId { get; set; }
+		public virtual string AppName { get; set; }
+		public virtual string ConsumerKey { get; set; }
+		public virtual string ConsumerKeySecret { get; set; }
+		public virtual string Token { get; set; }
+		public virtual string TokenSecret { get; set; }
+		public virtual DateTime? LastAccessedDTM { get; set; }
+		public virtual int RateLimitRemaining { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the Searches table.
+    /// </summary>
+	[Table("Searches")]
+	public partial class Search : BaseModel
+	{
+		[Key]
+		public virtual long SearchId { get; set; }
+		public virtual string Title { get; set; }
+		public virtual string AllOfTheseWords { get; set; }
+		public virtual string ThisExactPhrase { get; set; }
+		public virtual string AnyOfTheseWords { get; set; }
+		public virtual string NoneOfTheseWords { get; set; }
+		public virtual string NearThisPlace { get; set; }
+		public virtual int? Radius { get; set; }
+		public virtual int ResultType { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the ApiAccessHistoryLogs table.
+    /// </summary>
+	[Table("ApiAccessHistoryLogs")]
+	public partial class ApiAccessHistoryLog : BaseModel
+	{
+		[Key]
+		public virtual long ApiAccessHistoryLogId { get; set; }
+		public virtual int ApiApplicationId { get; set; }
+		public virtual DateTime AccessTime { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the HashTags table.
+    /// </summary>
+	[Table("HashTags")]
+	public partial class HashTag : BaseModel
+	{
+		[Key]
+		public virtual long Id { get; set; }
+		public virtual string Text { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the IgnoreWords table.
+    /// </summary>
+	[Table("IgnoreWords")]
+	public partial class IgnoreWord : BaseModel
+	{
+		[Key]
+		public virtual int IgnoreWordId { get; set; }
+		public virtual string WordText { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the SearchHistoryLogs table.
+    /// </summary>
+	[Table("SearchHistoryLogs")]
+	public partial class SearchHistoryLog : BaseModel
+	{
+		[Key]
+		public virtual long SearchHistoryLogId { get; set; }
+		public virtual long SearchId { get; set; }
+		public virtual DateTime SearchDate { get; set; }
+		public virtual long LastTweetId { get; set; }
+		public virtual int TweetCount { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the TwitterStatusesHashTags table.
+    /// </summary>
+	[Table("TwitterStatusesHashTags")]
+	public partial class TwitterStatusesHashTag : BaseModel
+	{
+		public virtual long TwitterStatusId { get; set; }
+		public virtual long HashTagId { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the Users table.
+    /// </summary>
+	[Table("Users")]
+	public partial class User : BaseModel
+	{
+		public virtual long UserId { get; set; }
+		public virtual string ScreenName { get; set; }
+		public virtual DateTime CreatedDate { get; set; }
+		public virtual string Description { get; set; }
+		public virtual int FavoritesCount { get; set; }
+		public virtual int FollowersCount { get; set; }
+		public virtual int FriendsCount { get; set; }
+		public virtual bool? IsVerified { get; set; }
+		public virtual string Language { get; set; }
+		public virtual int ListedCount { get; set; }
+		public virtual string ProfileImageUrl { get; set; }
+		public virtual string Name { get; set; }
+		public virtual string TimeZone { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the usd_AppliedDatabaseTestDataScript table.
+    /// </summary>
+	[Table("usd_AppliedDatabaseTestDataScript")]
+	public partial class usdAppliedDatabaseTestDataScript : BaseModel
+	{
+		public virtual string ScriptFile { get; set; }
+		public virtual DateTime DateApplied { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the Tweets table.
+    /// </summary>
+	[Table("Tweets")]
+	public partial class Tweet : BaseModel
+	{
+		public virtual long TweetId { get; set; }
+		public virtual string IdStr { get; set; }
+		public virtual long? TwitterUserId { get; set; }
+		public virtual string InReplyToScreenName { get; set; }
+		public virtual long? InReplyToStatusId { get; set; }
+		public virtual long InReplyToUserId { get; set; }
+		public virtual bool IsFavorited { get; set; }
+		public virtual bool IsTruncated { get; set; }
+		public virtual string Source { get; set; }
+		public virtual string Text { get; set; }
+		public virtual string Language { get; set; }
+		public virtual bool? IsPossiblySensitive { get; set; }
+		public virtual int RetweetCount { get; set; }
+		public virtual DateTime CreatedDate { get; set; }
+		public virtual long? SearchId { get; set; }
+	}
+
     /// <summary>
     /// A class which represents the TestTable table.
     /// </summary>
@@ -25,16 +172,6 @@ namespace Twitta.Website.Models.Database
 		public virtual string FullName { get; set; }
 		public virtual int value1 { get; set; }
 		public virtual int value2 { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the usd_AppliedDatabaseSeedScript table.
-    /// </summary>
-	[Table("usd_AppliedDatabaseSeedScript")]
-	public partial class usdAppliedDatabaseSeedScript : BaseModel
-	{
-		public virtual string ScriptFile { get; set; }
-		public virtual DateTime DateApplied { get; set; }
 	}
 
 }
