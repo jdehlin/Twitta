@@ -15,19 +15,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Twitta.Website.Models
 {
     /// <summary>
-    /// A class which represents the TestTable table.
-    /// </summary>
-	[Table("TestTable")]
-	public partial class TestTable : BaseModel
-	{
-		[Key]
-		public virtual int Id { get; set; }
-		public virtual string FullName { get; set; }
-		public virtual int value1 { get; set; }
-		public virtual int value2 { get; set; }
-	}
-
-    /// <summary>
     /// A class which represents the TwitterApps table.
     /// </summary>
 	[Table("TwitterApps")]
@@ -142,6 +129,16 @@ namespace Twitta.Website.Models
 	}
 
     /// <summary>
+    /// A class which represents the usd_AppliedDatabaseTestDataScript table.
+    /// </summary>
+	[Table("usd_AppliedDatabaseTestDataScript")]
+	public partial class usdAppliedDatabaseTestDataScript : BaseModel
+	{
+		public virtual string ScriptFile { get; set; }
+		public virtual DateTime DateApplied { get; set; }
+	}
+
+    /// <summary>
     /// A class which represents the Tweets table.
     /// </summary>
 	[Table("Tweets")]
@@ -162,6 +159,19 @@ namespace Twitta.Website.Models
 		public virtual int RetweetCount { get; set; }
 		public virtual DateTime CreatedDate { get; set; }
 		public virtual long? SearchId { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the TestTable table.
+    /// </summary>
+	[Table("TestTable")]
+	public partial class TestTable : BaseModel
+	{
+		[Key]
+		public virtual int Id { get; set; }
+		public virtual string FullName { get; set; }
+		public virtual int value1 { get; set; }
+		public virtual int value2 { get; set; }
 	}
 
 }

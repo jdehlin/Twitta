@@ -1,0 +1,58 @@
+﻿@model Twitta.Website.Models.TwitterApp
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ApiApplication</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AppName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsumerKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConsumerKey)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsumerKeySecret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConsumerKeySecret)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Token)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Token)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TokenSecret)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TokenSecret)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ApiApplicationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
