@@ -77,6 +77,11 @@
 
 <script>
     
+    Date.prototype.addHours = function (h) {
+        this.setHours(this.getHours() + h);
+        return this;
+    }
+
     function viewModel(model) {
         var self = {};
         self.words = ko.observableArray();
@@ -300,7 +305,7 @@
                     type: 'line',
                     name: data.words[i],
                     pointInterval: data.timeInterval,
-                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    pointStart: window.start != null ? Date.UTC(2014, 2, 01, window.start.getUTCHours(), 0, 0) : Date.UTC(2014, 2, 01, new Date().getUTCHours(), 0, 0), // TODO: Set this to the actual start of the range
                     data: data.counts[i]
                 });
             }
@@ -406,7 +411,7 @@
                     type: 'line',
                     name: data.words[i],
                     pointInterval: data.timeInterval,
-                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    pointStart: window.start != null ? Date.UTC(2014, 2, 01, window.start.getUTCHours(), 0, 0) : Date.UTC(2014, 2, 01, new Date().getUTCHours(), 0, 0), // TODO: Set this to the actual start of the range
                     data: data.counts[i]
                 });
             }

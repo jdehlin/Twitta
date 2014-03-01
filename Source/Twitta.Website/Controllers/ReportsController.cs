@@ -105,8 +105,10 @@ namespace Twitta.Website.Controllers
             var counts = new List<List<int>>();
             var inset = 0;
             var categories = new List<SentimentOptions> { SentimentOptions.Positive, SentimentOptions.Negative, SentimentOptions.Neutral };
+            var categoriesAsString = new List<string>();
             foreach (var category in categories)
             {
+                categoriesAsString.Add(category.ToString());
                 var currentCategory = category;
                 var innerCounts = new List<int>();
                 for (var i = 0; i < interval; i++)
@@ -121,7 +123,7 @@ namespace Twitta.Website.Controllers
                 counts.Add(innerCounts);
                 inset = 0;
             }
-            var dataModel = new { words = categories, counts, timeInterval };
+            var dataModel = new { words = categoriesAsString, counts, timeInterval };
             return new JsonResult
             {
                 Data = dataModel,
