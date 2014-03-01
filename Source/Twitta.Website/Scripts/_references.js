@@ -8,4 +8,3 @@
 /// <reference path="modernizr-2.6.2.js" />
 /// <reference path="modernizr-2.7.1.js" />
 /// <reference path="knockout-3.0.0.js" />
-/// <reference path="jqallrangesliders-min.js" />

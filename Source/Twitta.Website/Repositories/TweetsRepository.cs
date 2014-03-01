@@ -52,6 +52,14 @@ namespace Twitta.Website.Repositories
             }
         }
 
+        public string GetTweetTextInDateRange(long searchId, DateTime startDate, DateTime endDate)
+        {
+            const string sql = "Select(select text + ', ' as 'data()'  from tweets WHERE SearchId = @searchId AND dbo.Tweets.CreatedDate between @startDate and @endDate for xml path('')) as resulttext";
+            using (var connection = Utilities.Database.GetProfiledOpenConnection())
+            {
+                return connection.Query<string>(sql, new {searchId, startDate, endDate}).FirstOrDefault();
+            }
+        }
         public List<Tweet> GetTweetsInDateRange(long searchId, DateTime startDate, DateTime endDate)
         {
             const string sql = @"SELECT dbo.Tweets.TweetId, dbo.Tweets.IdStr, dbo.Tweets.TwitterUserId, dbo.Tweets.InReplyToScreenName, dbo.Tweets.InReplyToStatusId, dbo.Tweets.InReplyToUserId, dbo.Tweets.IsFavorited, 
