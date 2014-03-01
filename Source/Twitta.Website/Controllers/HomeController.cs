@@ -12,10 +12,14 @@ namespace Twitta.Website.Controllers
         // GET: /TestData/
         public ActionResult Index()
         {
-            
             return View();
         }
 
+
+        public ActionResult KeepAlive()
+        {
+            return View();
+        }
         
 
     }

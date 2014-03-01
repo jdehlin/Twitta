@@ -15,6 +15,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Twitta.Website.Models
 {
     /// <summary>
+    /// A class which represents the TestTable table.
+    /// </summary>
+	[Table("TestTable")]
+	public partial class TestTable : BaseModel
+	{
+		[Key]
+		public virtual int Id { get; set; }
+		public virtual string FullName { get; set; }
+		public virtual int value1 { get; set; }
+		public virtual int value2 { get; set; }
+	}
+
+    /// <summary>
     /// A class which represents the TwitterApps table.
     /// </summary>
 	[Table("TwitterApps")]
@@ -126,52 +139,6 @@ namespace Twitta.Website.Models
 		public virtual string ProfileImageUrl { get; set; }
 		public virtual string Name { get; set; }
 		public virtual string TimeZone { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the usd_AppliedDatabaseTestDataScript table.
-    /// </summary>
-	[Table("usd_AppliedDatabaseTestDataScript")]
-	public partial class usdAppliedDatabaseTestDataScript : BaseModel
-	{
-		public virtual string ScriptFile { get; set; }
-		public virtual DateTime DateApplied { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the Tweets table.
-    /// </summary>
-	[Table("Tweets")]
-	public partial class Tweet : BaseModel
-	{
-		public virtual long TweetId { get; set; }
-		public virtual string IdStr { get; set; }
-		public virtual long? TwitterUserId { get; set; }
-		public virtual string InReplyToScreenName { get; set; }
-		public virtual long? InReplyToStatusId { get; set; }
-		public virtual long InReplyToUserId { get; set; }
-		public virtual bool IsFavorited { get; set; }
-		public virtual bool IsTruncated { get; set; }
-		public virtual string Source { get; set; }
-		public virtual string Text { get; set; }
-		public virtual string Language { get; set; }
-		public virtual bool? IsPossiblySensitive { get; set; }
-		public virtual int RetweetCount { get; set; }
-		public virtual DateTime CreatedDate { get; set; }
-		public virtual long? SearchId { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the TestTable table.
-    /// </summary>
-	[Table("TestTable")]
-	public partial class TestTable : BaseModel
-	{
-		[Key]
-		public virtual int Id { get; set; }
-		public virtual string FullName { get; set; }
-		public virtual int value1 { get; set; }
-		public virtual int value2 { get; set; }
 	}
 
 }
