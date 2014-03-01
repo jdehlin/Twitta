@@ -92,6 +92,7 @@ namespace Twitta.Website.Controllers
             {
                 i.TwitterUserId,
                 TwitterUserScreenName = i.User.ScreenName,
+                TwitterUserProfileImage = i.User.ProfileImageUrl,
                 i.Text,
                 i.CreatedDate,
                 id = i.Id.ToString()
