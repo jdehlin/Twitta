@@ -5,7 +5,6 @@ using StackExchange.Exceptional;
 namespace Twitta.Website.Controllers
 {
     using AutoMapper;
-    using ViewModels;
 
     public class HomeController : Controller
     {
