@@ -128,6 +128,25 @@
             });
         };
 
+        self.loadWords = function() {
+            $.ajax({
+                url: '@Url.Action("Words", "Home", new { id = ViewBag.SearchId })',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    startDate: window.start,
+                    endDate: window.end
+                }),
+                success: function(response) {
+                    self.words([]);
+                    response.forEach(function (item) {
+                        self.words.push(word(item));
+                    });
+                }
+            });
+        };
+
         return self;
     };
 
@@ -496,6 +515,7 @@
                 window.basic.updateGraph(window.start, window.end);
                 window.advanced.updateGraph(window.start, window.end);
                 window.sentiment.updateGraph(window.start, window.end);
+                viewModel.loadWords();
             }, 500);
             if (ui.values[0] >= ui.values[1]) return false;
                 
