@@ -6,6 +6,7 @@ using AutoMapper;
 using StackExchange.Profiling;
 using TweetSharp;
 using Twitta.Website.Logic;
+using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
 using Twitta.Website.RepositoryInterfaces;
 
@@ -39,6 +40,9 @@ namespace Twitta.Website.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+            var sentence = "Marko sucks at programming.";
+            var analyzer = new SentimentAnalyzer();
+            ViewBag.Sentiment = analyzer.Analyze(sentence);
             return View(_searchLogic.GetItems());
         }
 
@@ -46,8 +50,9 @@ namespace Twitta.Website.Controllers
         {
             return View();
         }
-        public ActionResult SearchResults(int id, DateTime? startDate)
+        public ActionResult SearchResults(int id, DateTime? startDate, DateTime? endDate)
         {
+<<<<<<< HEAD
             //List<Tweet> tweets;
             string tweets;
             IEnumerable<dynamic> fancyWordStats;
@@ -74,13 +79,22 @@ namespace Twitta.Website.Controllers
 
     
     
+=======
+            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
+            endDate = endDate ?? DateTime.UtcNow;
+            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate);
+            var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
+                .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
+                .Select(i => new { word = i.Key, total = i.Value, searchId = id});
+>>>>>>> a1e80be6cbe5c380fa1eac4d22f90b920dba453f
             return View("SearchResults", fancyWordStats);
         }
 
-        public JsonResult RecentTweets(int id, string word, DateTime? startDate)
+        public JsonResult RecentTweets(int id, string word, DateTime? startDate, DateTime? endDate)
         {
-            startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
-            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow)
+            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
+            endDate = endDate ?? DateTime.UtcNow;
+            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate)
                 .Where(t => t.Text.ToLower().Contains(word.ToLower()));
             return Json(tweets);
         }

@@ -1,4 +1,13 @@
-﻿/* NORMALIZE */
+﻿html,body {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+
+/* NORMALIZE */
 
 
 
@@ -142,42 +151,74 @@ h1,h2,h3,h4,h5 {
 
 
 [class*="home-wrapper"] {
-    background: url('../Content/twitta-bg.jpg') no-repeat center center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('/Resources/Content/twitta-bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    width: 100%;
-    height: auto;
 }
+
+    [class*="home-wrapper"]:before {
+        content: "";
+        position: absolute;
+        top: 30%;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(255,255,255,.9);
+    }
 
     [class*="home-wrapper"]:after {
         content: "";
         position: absolute;
         top: 0;
         right: 0;
-        bottom: 60%;
+        bottom: 70%;
         left: 0;
-        background: rgba(41,128,185,.75);
+        background: rgba(87,200,239,.75);
     }
 
     .wrapper-twitta-logo {
         position: absolute;
-        top: 40%;
+        z-index: 1;
+        top: 30%;
         left: 50%;
+        margin: -4em 0 0 -4em;
         background: #fff;
         border-radius: 50%;
+        box-shadow: 0 2px 1px 0 rgba(0,0,0,.25);
         width: 8em;
         height: 8em;
     }
 
-        .twitta-logo {
-            background-image: url(../Content/twitta-logo.svg), none;
+        .wrapper-twitta-logo .twitta-logo {
+            margin: 1.5em auto 0 auto;
+            background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 5em 5.125em;
             width: 5em;
             height: 5.125em;
         }
 
+        .wrapper-twitta-logo .twitta-text {
+            position: absolute;
+            right: 0;
+            bottom: -1.5em;
+            left: 0;
+            font-family: 'Patua One', sans-serif;
+            font-size: 1.5em;
+            text-align: center;
+            color: #353535;
+        }
+
     .wrapper-home-search-options {
         position: absolute;
-        top: 40%;
+        z-index: 2;
+        top: 30%;
         right: 0;
         left: 0;
         margin-top: 6em;
@@ -197,6 +238,32 @@ h1,h2,h3,h4,h5 {
     height: 3.5em;
 }
 
-    [class*="header"] [class*="header-home"] {
+    [class*="header"] [class*="home-button"] {
         display: inline-block;
+        width: 14em;
+        line-height: 3.5em;
     }
+
+        [class*="home-button"] .twitta-logo {
+            background-image: url('/Resources/Content/twitta-logo.svg'), none;
+            background-size: 1.875em 1.975em;
+            width: 1.875em;
+            height: 1.975em;
+        }
+
+        [class*="header-home"] .twitta-text {
+            font-family: 'Patua One', sans-serif;
+            font-size: 1em;
+            text-align: center;
+            color: #fff;
+        }
+
+.wrapper-keywords {
+    position: fixed;
+    top: 3.5em;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    background: #777;
+    width: 14em;
+}

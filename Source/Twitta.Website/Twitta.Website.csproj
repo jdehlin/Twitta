@@ -163,10 +163,12 @@
     <Compile Include="Logic\Implementations\IgnoreWordLogic.cs" />
     <Compile Include="Logic\Implementations\SearchJobLogic.cs" />
     <Compile Include="Logic\Implementations\SearchLogic.cs" />
+    <Compile Include="Logic\Implementations\SentimentAnalyzer.cs" />
     <Compile Include="Logic\Implementations\TweetsLogic.cs" />
     <Compile Include="Logic\Implementations\TwitterAppLogic.cs" />
     <Compile Include="Logic\ISearchJobLogic.cs" />
     <Compile Include="Logic\ISearchLogic.cs" />
+    <Compile Include="Logic\ISentimentAnalyzer.cs" />
     <Compile Include="Logic\ITweetsLogic.cs" />
     <Compile Include="Logic\ITwitterAppLogic.cs" />
     <Compile Include="Models\ApiAccessHistoryLog.cs" />
@@ -292,6 +294,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\Content\twitta-bg.jpg" />
     <Content Include="Resources\Content\twitta-logo.svg" />
     <Content Include="Resources\CSS\font-awesome.css" />
     <Content Include="Resources\CSS\font-awesome.min.css" />
@@ -346,6 +349,7 @@
     <Content Include="Views\Search\Edit.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Home\SearchResults.cshtml" />
+    <Content Include="SliderTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
