@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[Tweets](
  CONSTRAINT [PK_Tweets] PRIMARY KEY CLUSTERED 
 (
 	[TweetId] ASC
-) ON [PRIMARY]
+) 
 ) ON [PRIMARY]
 
 GO
