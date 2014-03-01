@@ -1,4 +1,22 @@
-﻿/* GRID */
+﻿/* NORMALIZE */
+
+
+
+button {
+  text-transform: none;
+}
+
+button,
+html input[type="button"], /* 1 */
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button; /* 2 */
+  cursor: pointer; /* 3 */
+}
+
+
+
+/* GRID */
 
 
 
@@ -133,6 +151,14 @@ h1,h2,h3,h4,h5 {
             width: 5em;
             height: 5.125em;
         }
+
+    .wrapper-home-search-options {
+        position: absolute;
+        top: 40%;
+        right: 0;
+        left: 0;
+        margin-top: 6em;
+    }
 
 
 

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Twitta.Website.Models.Search>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NearThisPlace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Radius)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NearThisPlace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Radius)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SearchId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SearchId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SearchId })
+        </td>
+    </tr>
+}
+
+</table>
