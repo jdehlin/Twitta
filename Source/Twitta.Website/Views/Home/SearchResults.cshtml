@@ -6,7 +6,7 @@
 }
 
 <div class="header">
-    <a class="home-button" href="#">
+    <a class="home-button" href="/">
         <span class="wrapper-twitta-logo">
             <span class="twitta-logo"></span>
         </span>
@@ -46,19 +46,15 @@
     </p>
 
     <div id="slider-range" style="width:50%"></div>
-    <h2>Search Results</h2>
+    <h2 class="title-keyword-results">Keyword Results</h2>
 
-    <ul id="expandedTweetResults">
+    <ul id="expandedTweetResults" class="keyword-tweets">
         <!-- ko foreach: tweets -->
-        <li>
-            <ul>
-                <li data-bind="text: 'User.ScreenName:' + ScreenName"></li>
-                <li data-bind="text: 'User.Text:' + Text"></li>
-                <li data-bind="text: 'User.Date:' + CreatedDate"></li>
-                <li data-bind="text: 'ID:' + Id"></li>
-                <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
-            </ul>
-
+        <li class="keyword-tweet-list-item">
+            <h4 class="tweet-username" data-bind="text: ScreenName"></h4>
+            <span class="tweet-text" data-bind="text: Text"></span>
+            <span class="tweet-date" data-bind="text: CreatedDate"></span>
+            <a class="link-to-tweet" href="#" data-bind="attr: { href: url }">Go to tweet</a>
         </li>
         <!-- /ko -->
     </ul>
@@ -106,6 +102,7 @@
         self.TwitterUserId = item.TwitterUserId;
         self.ScreenName = item.TwitterUserScreenName;
         self.Text = item.Text;
+        debugger;
         self.CreatedDate = item.CreatedDate;
         self.Id = item.id;
         self.url = "https://twitter.com/" + item.TwitterUserScreenName + "/status/" + self.Id;
