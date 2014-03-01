@@ -40,7 +40,7 @@ namespace Twitta.Website.Repositories
         {
             using (_connection = Utilities.Database.GetProfiledOpenConnection())
             {
-                _connection.Delete(id);
+                _connection.Delete<TwitterApp>(id);
             }
         }
 

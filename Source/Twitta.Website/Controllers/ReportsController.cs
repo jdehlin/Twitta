@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using StackExchange.Profiling;
-using StructureMap.Query;
 using Twitta.Website.Logic;
+using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
-using Twitta.Website.ViewModels;
 
 namespace Twitta.Website.Controllers
 {
@@ -90,6 +87,41 @@ namespace Twitta.Website.Controllers
                 inset = 0;
             }
             var dataModel = new { words = categories, counts, timeInterval, startRange };
+            return new JsonResult
+            {
+                Data = dataModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult SentimentData(int id, int interval, DateTime? startRange, DateTime? endRange)
+        {
+            if (startRange == null)
+                startRange = DateTime.UtcNow.AddHours(-4);
+            if (endRange == null)
+                endRange = DateTime.UtcNow;
+            var tweets = _tweetsLogic.GetTweetsInDateRange(id, startRange.Value, endRange.Value);
+            var timeInterval = (int)Math.Floor((endRange - startRange).Value.TotalMilliseconds / interval);
+            var counts = new List<List<int>>();
+            var inset = 0;
+            var categories = new List<SentimentOptions> { SentimentOptions.Positive, SentimentOptions.Negative, SentimentOptions.Neutral };
+            foreach (var category in categories)
+            {
+                var currentCategory = category;
+                var innerCounts = new List<int>();
+                for (var i = 0; i < interval; i++)
+                {
+                    var intervalStartRange = startRange.Value.AddMilliseconds(inset);
+                    var intervalEndRange = startRange.Value.AddMilliseconds(inset + timeInterval);
+                    var texts = tweets.Where(t => t.CreatedDate > intervalStartRange && t.CreatedDate < intervalEndRange).Select(t => t).ToList();
+                    var rangeSentimentCount = texts.Count(t => t.Sentiment == currentCategory);
+                    innerCounts.Add(rangeSentimentCount);
+                    inset += timeInterval;
+                }
+                counts.Add(innerCounts);
+                inset = 0;
+            }
+            var dataModel = new { words = categories, counts, timeInterval };
             return new JsonResult
             {
                 Data = dataModel,

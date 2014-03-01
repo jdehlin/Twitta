@@ -6,7 +6,6 @@ using AutoMapper;
 using StackExchange.Profiling;
 using TweetSharp;
 using Twitta.Website.Logic;
-using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
 using Twitta.Website.RepositoryInterfaces;
 
@@ -40,10 +39,12 @@ namespace Twitta.Website.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var sentence = "Marko sucks at programming.";
-            var analyzer = new SentimentAnalyzer();
-            ViewBag.Sentiment = analyzer.Analyze(sentence);
-            return View(_searchLogic.GetItems());
+            var model = _searchLogic.GetItems();
+            foreach (var item in model)
+            {
+                item.Tweets = _tweetsLogic.GetTweetsInDateRange(item.SearchId, DateTime.UtcNow.AddHours(-4), DateTime.UtcNow);
+            }
+            return View(model);
         }
 
         public ActionResult KeepAlive()
@@ -95,7 +96,7 @@ namespace Twitta.Website.Controllers
                 TwitterUserScreenName = i.User.ScreenName,
                 i.Text,
                 i.CreatedDate,
-                i.Id
+                id = i.Id.ToString()
             });
 
             return Json(minimalTweets);

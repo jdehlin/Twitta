@@ -15,10 +15,12 @@ namespace Twitta.Website.Models
         public Search()
         {
             Logs = new List<SearchHistoryLog>();
+            Tweets = new List<Tweet>();
         }
 
         public IList<SearchHistoryLog> Logs { get; set; }
         public SearchHistoryLog LastLog { get; set; }
+        public IList<Tweet> Tweets { get; set; } 
 
         public int NumberOfTimes(int minutesInterval)
         {

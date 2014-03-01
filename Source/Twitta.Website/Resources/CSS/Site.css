@@ -30,6 +30,7 @@ input[type="submit"] {
     background: #777;
     font-size: 1em;
     line-height: 2.5em;
+    text-decoration: none;
 }
 
     [class*="button"][class*="-submit"] {
@@ -186,11 +187,11 @@ h1,h2,h3,h4,h5 {
     [class*="home-wrapper"]:before {
         content: "";
         position: absolute;
-        top: 30%;
+        top: 20.5%;
         right: 0;
         bottom: 0;
         left: 0;
-        background: rgba(255,255,255,.9);
+        background: rgba(222,221,221,.9);
     }
 
     [class*="home-wrapper"]:after {
@@ -198,25 +199,25 @@ h1,h2,h3,h4,h5 {
         position: absolute;
         top: 0;
         right: 0;
-        bottom: 70%;
+        bottom: 80%;
         left: 0;
         background: rgba(87,200,239,.75);
     }
 
-    .wrapper-twitta-logo {
+    [class*="home-wrapper"] .wrapper-twitta-logo {
         position: absolute;
         z-index: 1;
-        top: 30%;
+        top: 20%;
         left: 50%;
         margin: -4em 0 0 -4em;
         background: #fff;
         border-radius: 50%;
-        box-shadow: 0 2px 1px 0 rgba(0,0,0,.25);
+        box-shadow: 0 0 0 3px #353535;
         width: 8em;
         height: 8em;
     }
 
-        .wrapper-twitta-logo .twitta-logo {
+        [class*="home-wrapper"] .wrapper-twitta-logo .twitta-logo {
             margin: 1.5em auto 0 auto;
             background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 5em 5.125em;
@@ -235,13 +236,135 @@ h1,h2,h3,h4,h5 {
             color: #353535;
         }
 
+.wrapper-new-search-term {
+    transition: all .2s ease-out;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    margin-top: 7.3125em;
+    margin-left: -1.25em;
+    padding: .25em;
+    background: #fff;
+    border-radius: 1.25em;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+    .wrapper-new-search-term.active {
+        margin-left: -7.5em;
+        width: 15em;
+    }
+
+    .add-search-option {
+        display: inline-block;
+        background: #27ae60;
+        border-radius: 50%;
+        width: 2em;
+        height: 2em;
+        line-height: 2em;
+        text-align: center;
+        color: #fff;
+    }
+
+        .add-search-option:hover {
+            background: #35C472;
+            color: #fff;
+        }
+
+    .wrapper-new-search-term input {
+        display: none;
+    }
+
+    .wrapper-new-search-term input.active {
+        display: inline-block;
+        margin: 0;
+        padding: 0 .25em;
+        border: none;
+        border-left: .125em solid transparent;
+        width: 11.5em;
+    }
+
+        .wrapper-new-search-term.active input:focus {
+            outline: none;
+            border-left: .125em solid #27ae60;
+        }
+
     .wrapper-home-search-options {
         position: absolute;
         z-index: 2;
-        top: 30%;
+        top: 20%;
         right: 0;
         left: 0;
-        margin-top: 6em;
+        margin-top: 11.75em;
+    }
+
+.search-result {
+    position: relative;
+    background: #fff;
+    border-radius: 0 0 .5em 0;
+    height: 8em;
+}
+
+    .column.fourth:nth-child(1) .search-result {
+        box-shadow: 3px 0 0 0 #2980b9;
+    }
+
+        .column.fourth:nth-child(1) .search-result .search-result-name:hover {
+            background: #2980b9;
+        }
+
+    .column.fourth:nth-child(2) .search-result {
+        box-shadow: 3px 0 0 0 #4B9FD6;
+    }
+
+        .column.fourth:nth-child(2) .search-result .search-result-name:hover {
+            background: #4B9FD6;
+        }
+
+    .column.fourth:nth-child(3) .search-result {
+        box-shadow: 3px 0 0 0 #6BB6E8;
+    }
+        
+        .column.fourth:nth-child(3) .search-result .search-result-name:hover {
+            background: #6BB6E8;
+        }
+
+    .column.fourth:nth-child(4) .search-result {
+        box-shadow: 3px 0 0 0 #95CCF0;
+    }
+
+        .column.fourth:nth-child(4) .search-result .search-result-name:hover {
+            background: #95CCF0;
+        }
+
+    .column.fourth:nth-child(5) .search-result {
+        box-shadow: 3px 0 0 0 #BBE1FA;
+    }
+
+        .column.fourth:nth-child(5) .search-result .search-result-name:hover {
+            background: #BBE1FA;
+        }
+
+    .search-result-name {
+        display: block;
+        padding: 1rem;
+        background: rgba(0,0,0,.05);
+        font-family: 'Bitter', sans-serif;
+        font-size: 1.25em;
+        text-decoration: none;
+    }
+
+        .search-result-name:hover {
+            background: #2980b9;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    .search-result-tweet-number {
+        position: absolute;
+        right: 1em;
+        bottom: 1em;
+        display: block;
     }
 
 
@@ -262,7 +385,8 @@ h1,h2,h3,h4,h5 {
     [class*="header"] [class*="home-button"] {
         display: inline-block;
         margin-right: -.25em;
-        background: #fff;
+        padding: 0 1em;
+        background: #2980b9;
         width: 14em;
         line-height: 3.5em;
     }
@@ -272,12 +396,30 @@ h1,h2,h3,h4,h5 {
         line-height: 3.5em;
     }
 
-        [class*="home-button"] .twitta-logo {
+        [class*="home-button"] .wrapper-twitta-logo {
             display: inline-block;
-            background-image: url('/Resources/Content/twitta-logo.svg'), none;
-            background-size: 1.875em 1.975em;
-            width: 1.875em;
-            height: 1.975em;
+            margin-top: .5em;
+            background: #fff;
+            border-radius: 50%;
+            width: 2.5em;
+            height: 2.5em;
+        }
+
+            .wrapper-twitta-logo .twitta-logo {
+                display: block;
+                margin: .3125em auto;
+                background-image: url('/Resources/Content/twitta-logo.svg'), none;
+                background-size: 1.875em 1.975em;
+                width: 1.875em;
+                height: 1.975em;
+            }
+
+        [class*="home-button"] .label {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0;
+            line-height: inherit;
+            color: #fff;
         }
 
         [class*="header-home"] .twitta-text {
@@ -293,9 +435,31 @@ h1,h2,h3,h4,h5 {
     bottom: 0;
     left: 0;
     overflow-y: auto;
-    background: #777;
+    padding: 1em 0;
+    background: #f5f5f5;
     width: 14em;
 }
+
+    .keyword-results {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .keyword-list-item {
+            position: relative;
+        }
+
+            .link-keyword {
+                padding: 0 4em 0 1em;
+                line-height: 2em;
+            }
+
+            .link-keyword-number {
+                position: absolute;
+                top: .5em;
+                right: 1em;
+            }
 
 .wrapper-search-content {
     margin: 5.5em 3.5em 3.5em 16em;

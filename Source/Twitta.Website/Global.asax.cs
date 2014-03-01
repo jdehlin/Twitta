@@ -38,6 +38,8 @@ namespace Twitta.Website
             Mapper.CreateMap<User, TwitterUser>();
             Mapper.CreateMap<SearchViewModel, Search>();
             Mapper.CreateMap<Search, SearchViewModel>();
+            Mapper.CreateMap<TwitterAppViewModel, TwitterApp>();
+            Mapper.CreateMap<TwitterApp, TwitterAppViewModel>();
 
             Scheduler.Init();
         }
