@@ -64,7 +64,7 @@ namespace Twitta.Website.Repositories
         {
             const string sql = @"SELECT dbo.Tweets.TweetId, dbo.Tweets.IdStr, dbo.Tweets.TwitterUserId, dbo.Tweets.InReplyToScreenName, dbo.Tweets.InReplyToStatusId, dbo.Tweets.InReplyToUserId, dbo.Tweets.IsFavorited, 
                          dbo.Tweets.IsTruncated, dbo.Tweets.Source, dbo.Tweets.Text, dbo.Tweets.Language, dbo.Tweets.IsPossiblySensitive, dbo.Tweets.RetweetCount, dbo.Tweets.CreatedDate, dbo.Tweets.SearchId, 
-                         dbo.Users.ScreenName, dbo.Users.FollowersCount, dbo.Users.Name
+                         dbo.Users.ScreenName, dbo.Users.FollowersCount, dbo.Users.Name, dbo.users.ProfileImageURL
 FROM            dbo.Tweets left Outer JOIN
                          dbo.Users ON dbo.Tweets.TwitterUserId = dbo.Users.UserId
 WHERE SearchId = @searchId AND dbo.Tweets.CreatedDate between @startDate and @endDate";
