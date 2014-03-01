@@ -45,20 +45,22 @@ namespace Twitta.Website.Controllers
         {
             return View();
         }
-        public ActionResult SearchResults(int id, DateTime? startDate)
+        public ActionResult SearchResults(int id, DateTime? startDate, DateTime? endDate)
         {
-            startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
-            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
+            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
+            endDate = endDate ?? DateTime.UtcNow;
+            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate);
             var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
                 .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
                 .Select(i => new { word = i.Key, total = i.Value, searchId = id});
             return View("SearchResults", fancyWordStats);
         }
 
-        public JsonResult RecentTweets(int id, string word, DateTime? startDate)
+        public JsonResult RecentTweets(int id, string word, DateTime? startDate, DateTime? endDate)
         {
-            startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
-            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow)
+            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
+            endDate = endDate ?? DateTime.UtcNow;
+            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate)
                 .Where(t => t.Text.ToLower().Contains(word.ToLower()));
             return Json(tweets);
         }
