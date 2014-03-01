@@ -25,16 +25,16 @@
                 @Html.ActionLink("Apps", "Index", "Applications", null, new { @class = "navbar-brand" })
                 @Html.ActionLink("Searches", "Index", "Search", null, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            @*<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("View Errors", "Exceptions", "Error")</li>
                 </ul>
 
-            </div>
+            </div>*@
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top: 80px;">
         @RenderBody()
         <hr />
         <footer>
