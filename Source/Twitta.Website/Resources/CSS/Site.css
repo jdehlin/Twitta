@@ -315,7 +315,7 @@ h1,h2,h3,h4,h5 {
     background: #fff;
     border-radius: 0 0 .5em 0;
     height: 8em;
-    word-break: break-word;
+    word-break: break-all;
 }
 
     .column.fourth:nth-child(1) .search-result {
