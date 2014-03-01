@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
-using StackExchange.Profiling;
-using StructureMap.Query;
 using Twitta.Website.Logic;
 using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
-using Twitta.Website.ViewModels;
 
 namespace Twitta.Website.Controllers
 {

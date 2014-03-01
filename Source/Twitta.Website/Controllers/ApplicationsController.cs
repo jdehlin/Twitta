@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using AutoMapper;
 using Twitta.Website.Logic;
 using Twitta.Website.Models;
+using Twitta.Website.ViewModels;
 
 namespace Twitta.Website.Controllers
 {
@@ -21,15 +23,16 @@ namespace Twitta.Website.Controllers
 
         public ActionResult Create()
         {
-            return View(new TwitterApp());
+            return View(new TwitterAppViewModel());
         }
 
         [HttpPost]
-        public ActionResult Create(TwitterApp model)
+        public ActionResult Create(TwitterAppViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _apiApplicationLogic.SaveOrUpdate(model);
+                var entity = Mapper.Map<TwitterApp>(model);
+                _apiApplicationLogic.SaveOrUpdate(entity);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -37,18 +40,25 @@ namespace Twitta.Website.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View(_apiApplicationLogic.GetItem(id));
+            return View(Mapper.Map<TwitterAppViewModel>(_apiApplicationLogic.GetItem(id)));
         }
 
         [HttpPost]
-        public ActionResult Edit(TwitterApp model)
+        public ActionResult Edit(TwitterAppViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _apiApplicationLogic.SaveOrUpdate(model);
+                var entity = Mapper.Map<TwitterApp>(model);
+                _apiApplicationLogic.SaveOrUpdate(entity);
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            _apiApplicationLogic.Delete(id);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int id)
