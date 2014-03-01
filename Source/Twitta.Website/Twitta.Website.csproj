@@ -311,6 +311,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Models\Database\ModelGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -343,6 +345,7 @@
     <Content Include="Views\Search\Create.cshtml" />
     <Content Include="Views\Search\Edit.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Home\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,7 +382,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>7832</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:4278/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
