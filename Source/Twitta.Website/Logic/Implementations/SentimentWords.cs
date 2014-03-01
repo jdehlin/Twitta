@@ -14,6 +14,7 @@ namespace Twitta.Website.Logic.Implementations
         public static Dictionary<string, SentimentOptions> WordList = new Dictionary<string, SentimentOptions>()
         {
             {"awesome", SentimentOptions.Positive},
+            {"awesomeness", SentimentOptions.Positive},
             {"great", SentimentOptions.Positive},
             {"good", SentimentOptions.Positive},
             {"cool", SentimentOptions.Positive},
@@ -22,6 +23,7 @@ namespace Twitta.Website.Logic.Implementations
             {"amazing", SentimentOptions.Positive},
             {"yes", SentimentOptions.Positive},
             {"yeah", SentimentOptions.Positive},
+            {"superb", SentimentOptions.Positive},
             {"bad", SentimentOptions.Negative},
             {"awful", SentimentOptions.Negative},
             {"horrible", SentimentOptions.Negative},
@@ -31,7 +33,8 @@ namespace Twitta.Website.Logic.Implementations
             {"worst", SentimentOptions.Negative},
             {"not", SentimentOptions.Negative},
             {"no", SentimentOptions.Negative},
-            {"shit", SentimentOptions.Negative}
+            {"shit", SentimentOptions.Negative},
+            {"nasty", SentimentOptions.Negative}
         };
     }
 }
