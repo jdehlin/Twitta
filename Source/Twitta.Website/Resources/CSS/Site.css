@@ -311,6 +311,7 @@ h1,h2,h3,h4,h5 {
     background: #fff;
     border-radius: 0 0 .5em 0;
     height: 8em;
+    word-break: break-word;
 }
 
     .column.fourth:nth-child(1) .search-result {
@@ -450,7 +451,7 @@ h1,h2,h3,h4,h5 {
     left: 14em;
     padding: 1em 2em;
     background: #fff;
-    height: 4em;
+    height: 5.5em;
 }
 
 h2.title-keyword-results {

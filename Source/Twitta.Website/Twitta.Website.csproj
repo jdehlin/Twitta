@@ -307,6 +307,7 @@
     <Content Include="Resources\CSS\font-awesome.min.css" />
     <Content Include="Resources\CSS\Site.css" />
     <Content Include="Resources\font\fontawesome-webfont.svg" />
+    <Content Include="Resources\Scripts\scrollTo.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Highcharts-3.0.1\js\adapters\mootools-adapter.js" />
@@ -381,7 +382,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

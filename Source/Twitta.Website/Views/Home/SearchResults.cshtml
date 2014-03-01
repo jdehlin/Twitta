@@ -18,7 +18,6 @@
         <span class="label">Graph 1</span>
     </button>
 
-    @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
 </div>
 
 <div class="wrapper-keywords" id="keywordResults">
@@ -49,7 +48,7 @@
         <div id="slider-range" style="width:50%"></div>
     </div>
 
-    <h2 class="title-keyword-results">Keyword Results</h2>
+    <h2 class="title-keyword-results"><a id="KeywordList" name="KeywordList">Keyword Results</a></h2>
 
     <ul id="expandedTweetResults" class="keyword-tweets">
         <!-- ko foreach: tweets -->
@@ -68,14 +67,12 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('.link-keyword').on('click', function () {
-            $('.wrapper-search-content').scrollTo('.title-keyword-results');
-        });
-    });
-</script>
 
-<script>
+    $('.link-keyword').on('click', function () {
+        console.log('here')
+        var target = $('#KeywordList');
+        $('body,html').animate({ scrollTop: aTag.offset().top }, 'slow');
+    });
     
     Date.prototype.addHours = function (h) {
         this.setHours(this.getHours() + h);
@@ -111,6 +108,8 @@
 
         self.getExpandedTweets = function () {
             viewModel.loadTweets(self.getExpandedTweetsUrl);
+            var target = $('#KeywordList');
+            $('body,html').animate({ scrollTop: target.offset().top - 160 }, 'slow');
         };
 
         return self;
@@ -121,7 +120,6 @@
         self.TwitterUserId = item.TwitterUserId;
         self.ScreenName = item.TwitterUserScreenName;
         self.Text = item.Text;
-        debugger;
         self.CreatedDate = item.CreatedDate;
         self.Id = item.id;
         self.url = "https://twitter.com/" + item.TwitterUserScreenName + "/status/" + self.Id;
