@@ -64,13 +64,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Dapper.SimpleCRUD.1.3.0\lib\net40\Dapper.SimpleCRUD.dll</HintPath>
     </Reference>
+    <Reference Include="Hammock">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\Hammock.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MiniProfiler">
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Quartz">
       <HintPath>..\packages\Quartz.2.2.2\lib\net40\Quartz.dll</HintPath>
@@ -135,6 +142,9 @@
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TweetSharp">
+      <HintPath>..\packages\TweetSharp-Unofficial.2.3.1.2\lib\4.0\TweetSharp.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -149,20 +159,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logic\ITestTableLogic.cs" />
+    <Compile Include="Models\ApiAccessHistoryLog.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Database\ModelGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TestTable.cs" />
+    <Compile Include="Models\HashTag.cs" />
+    <Compile Include="Models\IgnoreWord.cs" />
+    <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\SearchHistoryLog.cs" />
+    <Compile Include="Models\Tweet.cs" />
+    <Compile Include="Models\TweetProcessor.cs" />
+    <Compile Include="Models\TwitterApp.cs" />
+    <Compile Include="Models\TwitterKeys.cs" />
+    <Compile Include="Models\TwitterSearchResult.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Quartz\Scheduler.cs" />
     <Compile Include="Quartz\SearchJob.cs" />
-    <Compile Include="RepositoryInterfaces\ITestTableRepository.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
-    <Compile Include="Logic\Implementations\TestTableLogic.cs" />
-    <Compile Include="Repositories\TestTableRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\TestTable.cs" />
   </ItemGroup>
@@ -228,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Logic\Implementations\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="RepositoryInterfaces\" />
     <Folder Include="Resources\Scripts\" />
   </ItemGroup>
   <ItemGroup>
