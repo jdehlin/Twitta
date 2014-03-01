@@ -89,7 +89,7 @@ namespace Twitta.Website.Controllers
                 TwitterUserScreenName = i.User.ScreenName,
                 i.Text,
                 i.CreatedDate,
-                i.Id
+                id = i.Id.ToString()
             });
 
             return Json(minimalTweets);

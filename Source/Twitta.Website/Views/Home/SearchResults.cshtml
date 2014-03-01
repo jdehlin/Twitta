@@ -7,7 +7,9 @@
 
 <div class="header">
     <a class="home-button" href="#">
-        <span class="twitta-logo"></span>
+        <span class="wrapper-twitta-logo">
+            <span class="twitta-logo"></span>
+        </span>
         <span class="label">Twitta</span>
     </a>
 
@@ -20,11 +22,13 @@
 </div>
 
 <div class="wrapper-keywords">
-    <ul id="results">
+    <ul id="results" class="keyword-results">
         <!-- ko foreach: words -->
-        <li>
-            <a href="#" data-bind="click: getExpandedTweets, text: word, attr: { href: getExpandedTweetsUrl }"></a>:
-            <!--ko text: total --><!--/ko-->
+        <li class="keyword-list-item">
+            <a class="link-keyword" href="#" data-bind="click: getExpandedTweets, text: word, attr: { href: getExpandedTweetsUrl }">
+            
+            </a>
+            <span class="link-keyword-number"><!--ko text: total --><!--/ko--></span>
         </li>
         <!-- /ko -->
     </ul>
@@ -43,7 +47,7 @@
         <!-- ko foreach: tweets -->
         <li>
             <ul>
-                <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
+                <li data-bind="text: 'User.ScreenName:' + ScreenName"></li>
                 <li data-bind="text: 'User.Text:' + Text"></li>
                 <li data-bind="text: 'User.Date:' + CreatedDate"></li>
                 <li data-bind="text: 'ID:' + Id"></li>
@@ -113,11 +117,11 @@
     function tweet(item) {
         var self = {};
         self.TwitterUserId = item.TwitterUserId;
-        self.TwitterUserScreenName = item.TwitterUserScreenName;
+        self.ScreenName = item.TwitterUserScreenName;
         self.Text = item.Text;
         self.CreatedDate = item.CreatedDate;
-        self.Id = item.Id;
-        self.url = "https://twitter.com/" + self.TwitterUserScreenName + "/status/" + self.Id;
+        self.Id = item.id;
+        self.url = "https://twitter.com/" + item.TwitterUserScreenName + "/status/" + self.Id;
         return self;
     }
 

@@ -204,7 +204,7 @@ h1,h2,h3,h4,h5 {
         background: rgba(87,200,239,.75);
     }
 
-    .wrapper-twitta-logo {
+    [class*="home-wrapper"] .wrapper-twitta-logo {
         position: absolute;
         z-index: 1;
         top: 20%;
@@ -217,7 +217,7 @@ h1,h2,h3,h4,h5 {
         height: 8em;
     }
 
-        .wrapper-twitta-logo .twitta-logo {
+        [class*="home-wrapper"] .wrapper-twitta-logo .twitta-logo {
             margin: 1.5em auto 0 auto;
             background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 5em 5.125em;
@@ -385,7 +385,8 @@ h1,h2,h3,h4,h5 {
     [class*="header"] [class*="home-button"] {
         display: inline-block;
         margin-right: -.25em;
-        background: #fff;
+        padding: 0 1em;
+        background: #2980b9;
         width: 14em;
         line-height: 3.5em;
     }
@@ -395,12 +396,30 @@ h1,h2,h3,h4,h5 {
         line-height: 3.5em;
     }
 
-        [class*="home-button"] .twitta-logo {
+        [class*="home-button"] .wrapper-twitta-logo {
             display: inline-block;
-            background-image: url('/Resources/Content/twitta-logo.svg'), none;
-            background-size: 1.875em 1.975em;
-            width: 1.875em;
-            height: 1.975em;
+            margin-top: .5em;
+            background: #fff;
+            border-radius: 50%;
+            width: 2.5em;
+            height: 2.5em;
+        }
+
+            .wrapper-twitta-logo .twitta-logo {
+                display: block;
+                margin: .3125em auto;
+                background-image: url('/Resources/Content/twitta-logo.svg'), none;
+                background-size: 1.875em 1.975em;
+                width: 1.875em;
+                height: 1.975em;
+            }
+
+        [class*="home-button"] .label {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0;
+            line-height: inherit;
+            color: #fff;
         }
 
         [class*="header-home"] .twitta-text {
@@ -416,9 +435,31 @@ h1,h2,h3,h4,h5 {
     bottom: 0;
     left: 0;
     overflow-y: auto;
-    background: #777;
+    padding: 1em 0;
+    background: #f5f5f5;
     width: 14em;
 }
+
+    .keyword-results {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .keyword-list-item {
+            position: relative;
+        }
+
+            .link-keyword {
+                padding: 0 4em 0 1em;
+                line-height: 2em;
+            }
+
+            .link-keyword-number {
+                position: absolute;
+                top: .5em;
+                right: 1em;
+            }
 
 .wrapper-search-content {
     margin: 5.5em 3.5em 3.5em 16em;
