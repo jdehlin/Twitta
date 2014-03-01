@@ -209,7 +209,10 @@ h1,h2,h3,h4,h5 {
             right: 0;
             bottom: -1.5em;
             left: 0;
+            font-family: 'Patua One', sans-serif;
+            font-size: 1.5em;
             text-align: center;
+            color: #353535;
         }
 
     .wrapper-home-search-options {
@@ -238,3 +241,13 @@ h1,h2,h3,h4,h5 {
     [class*="header"] [class*="header-home"] {
         display: inline-block;
     }
+
+.wrapper-keywords {
+    position: fixed;
+    top: 3.5em;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    background: #777;
+    width: 12em;
+}
