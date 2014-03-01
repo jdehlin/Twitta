@@ -1,0 +1,186 @@
+﻿@using Newtonsoft.Json
+@model TwitterSandbox.Website.ViewModels.SearchReportView
+
+@{
+    ViewBag.Title = "Reports | " + Model.Search.Title;
+}
+
+<h2>Search | @Model.Search.Title</h2>
+
+<a href="#" id="updateChart">Update Charts</a><br /><br />
+
+<div id="basicWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+<div id="advancedWordCountChart" style="min-width: 310px; height: 500px; margin: 0 auto"></div>
+
+<script type="text/javascript">
+
+    function BasicWordCountChart() {
+        var categories = @(Html.Raw(JsonConvert.SerializeObject(Model.Data.Select(d => d.Key))));
+        var values = @(Html.Raw(JsonConvert.SerializeObject(Model.Data.Select(d => d.Value))));
+        var options = {
+            chart: {
+                renderTo: 'basicWordCountChart',
+                type: 'column'
+            },
+            title:{
+                text:''
+            },
+            subTitle:{
+                text:''
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Word Count'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                data: values
+            }]
+        };
+        var chart = new Highcharts.Chart(options);
+
+        function updateGraph() {
+            //ajax calls
+            $.ajax({
+                url: '@Url.Action("BasicWordCountData", new { id = Model.Search.SearchId })',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    chart.xAxis[0].setCategories(response.words);
+                    chart.series[0].setData(response.counts);
+                }
+            });
+        }
+
+        $('#updateChart').on('click', function() {
+            updateGraph();
+            return false;
+        });
+    }
+
+    function AdvancedWordCountChart() {
+        var options = {
+            chart: {
+                renderTo: 'advancedWordCountChart',
+                zoomType: 'x'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' :
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime',
+                maxZoom: 3600 * 1000,
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Word Count'
+                }
+            },
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                enabled: true
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'bayer',
+                pointInterval: 3600 * 1000,
+                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
+                data: [
+                    0.8446,0.8445,0.8444,0.8451,1.4418,1.7264
+                ]
+            }, {
+                type: 'line',
+                name: 'pharmacy',
+                pointInterval: 3600 * 1000,
+                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
+                data: [
+                    0.8946,0.8045,0.8444,0.6451,1.2418,1.9264
+                ]
+            }, {
+                type: 'line',
+                name: 'ipo',
+                pointInterval: 3600 * 1000,
+                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
+                data: [
+                    0.3946,0.6045,0.9444,1.6451,2.4418,3.6264
+                ]
+            }]
+        };
+        var chart = new Highcharts.Chart(options);
+
+        function updateGraph() {
+            //ajax calls
+            $.ajax({
+                url: '@Url.Action("BasicWordCountData", new { id = Model.Search.SearchId })',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    chart.xAxis[0].setCategories(response.words);
+                    chart.series[0].setData(response.counts);
+                }
+            });
+        }
+
+        $('#updateChart').on('click', function() {
+            updateGraph();
+            return false;
+        });
+    }
+
+    BasicWordCountChart();
+    AdvancedWordCountChart();
+
+</script>
