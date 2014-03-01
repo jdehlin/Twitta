@@ -52,20 +52,15 @@ namespace Twitta.Website.Controllers
         }
         public ActionResult SearchResults(int id, DateTime? startDate, DateTime? endDate)
         {
-<<<<<<< HEAD
             //List<Tweet> tweets;
             string tweets;
             IEnumerable<dynamic> fancyWordStats;
+            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
+            endDate = endDate ?? DateTime.UtcNow;
             var profiler = MiniProfiler.Current; // it's ok if this is null
-            using (profiler.Step("1"))
-            {
-                  startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
-            }
-            using (profiler.Step("2"))
-            {
+
              //tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
-             tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime) startDate, DateTime.UtcNow);
-            }
+             tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime) startDate, (DateTime) endDate);
             using (profiler.Step("3"))
             {
                 //var temp = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList());
@@ -77,16 +72,11 @@ namespace Twitta.Website.Controllers
                 profiler.Step("6");
             }
 
-    
-    
-=======
-            startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
-            endDate = endDate ?? DateTime.UtcNow;
-            var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate);
-            var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
-                .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
-                .Select(i => new { word = i.Key, total = i.Value, searchId = id});
->>>>>>> a1e80be6cbe5c380fa1eac4d22f90b920dba453f
+            //var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate);
+            //var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
+            //    .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
+            //    .Select(i => new { word = i.Key, total = i.Value, searchId = id });
+
             return View("SearchResults", fancyWordStats);
         }
 
