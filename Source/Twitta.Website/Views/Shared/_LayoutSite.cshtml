@@ -11,23 +11,18 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/knockout")
+    <script src="~/Scripts/Highcharts-3.0.1/js/highcharts.js"></script>
     @StackExchange.Profiling.MiniProfiler.RenderIncludes()
 
 </head>
 <body>
-
-    @Html.ActionLink("Twitta", "Index", "Home", null, new { @class = "navbar-brand" })
-
-    <ul class="nav navbar-nav">
-        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("View Errors", "Exceptions", "Error")</li>
-    </ul>
 
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
 

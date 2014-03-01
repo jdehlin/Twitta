@@ -11,10 +11,12 @@
         <span class="label">Twitta</span>
     </a>
 
-    <button class="button-graph">
+    <button class="button-graph-transparent">
         <span class="fa fa-bar-chart-o"></span>
         <span class="label">Graph 1</span>
     </button>
+
+    @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
 </div>
 
 <div class="wrapper-keywords">
@@ -28,22 +30,50 @@
     </ul>
 </div>
 
-<h2>Search Results</h2>
+<div class="wrapper-search-content">
+    <p>
+        <label for="amount">Range:</label>
+        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+    </p>
 
-<ul id="expandedTweetResults">
-    <!-- ko foreach: tweets -->
-    <li>
-        <ul>
-            <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
-            <li data-bind="text: 'User.Text:' + Text"></li>
-            <li data-bind="text: 'User.Date:' + CreatedDate"></li>
-            <li data-bind="text: 'ID:' + Id"></li>
-            <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
-        </ul>
-        
-    </li>
-    <!-- /ko -->
-</ul>
+    <div id="slider-range" style="width:50%"></div>
+    <h2>Search Results</h2>
+
+    <ul id="expandedTweetResults">
+        <!-- ko foreach: tweets -->
+        <li>
+            <ul>
+                <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
+                <li data-bind="text: 'User.Text:' + Text"></li>
+                <li data-bind="text: 'User.Date:' + CreatedDate"></li>
+                <li data-bind="text: 'ID:' + Id"></li>
+                <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
+            </ul>
+
+        </li>
+        <!-- /ko -->
+    </ul>
+
+</div>
+<script>
+    $(function () {
+        var blockAfterTimeout;
+        $("#slider-range").slider({
+            range: true,
+            min: -24,
+            max: 0,
+            values: [-6, 0],
+            slide: function (event, ui) {
+                clearTimeout(blockAfterTimeout);
+                blockAfterTimeout = setTimeout(function () { console.log('science!'); }, 500);
+                if (ui.values[0] >= ui.values[1]) return false;
+                
+                $("#amount").val(-ui.values[0] + " hours to " + -ui.values[1] + " hours ago");
+            }
+        });
+        $("#amount").val(-$("#slider-range").slider("values", 0) + " hours to " + (-$("#slider-range").slider("values", 1)) + " hours ago");
+    });
+</script>
 
 <script>
     function viewModel(model) {
@@ -83,10 +113,11 @@
     function tweet(item) {
         var self = {};
         self.TwitterUserId = item.TwitterUserId;
+        self.TwitterUserScreenName = item.TwitterUserScreenName;
         self.Text = item.Text;
         self.CreatedDate = item.CreatedDate;
         self.Id = item.Id;
-        self.url = "https://twitter.com/" + self.TwitterUserId + "/status/" + self.Id;
+        self.url = "https://twitter.com/" + self.TwitterUserScreenName + "/status/" + self.Id;
         return self;
     }
 

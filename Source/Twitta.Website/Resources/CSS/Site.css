@@ -1,4 +1,5 @@
 ﻿html,body {
+    font-family: 'Open Sans', 'Segoe UI', 'Helvetica', sans-serif;
     font-size: 16px;
     margin: 0;
     padding: 0;
@@ -12,7 +13,8 @@
 
 
 button {
-  text-transform: none;
+    border: none;
+    text-transform: none;
 }
 
 button,
@@ -45,6 +47,24 @@ input[type="submit"] {
     [class*="button"][class*="-view"] {
         background: #2980b9;
     }
+
+    [class*="button"][class*="-transparent"] {
+        background: transparent;
+        color: #444;
+    }
+
+    [class*="button"] span {
+        display: inline-block;
+        vertical-align: top;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+    }
+
+.label {
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -235,16 +255,25 @@ h1,h2,h3,h4,h5 {
     top: 0;
     right: 0;
     left: 0;
+    background: #f5f5f5;
     height: 3.5em;
 }
 
     [class*="header"] [class*="home-button"] {
         display: inline-block;
+        margin-right: -.25em;
+        background: #fff;
         width: 14em;
         line-height: 3.5em;
     }
 
+    [class*="header"] [class*="button"] {
+        display: inline-block;
+        line-height: 3.5em;
+    }
+
         [class*="home-button"] .twitta-logo {
+            display: inline-block;
             background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 1.875em 1.975em;
             width: 1.875em;
@@ -266,4 +295,9 @@ h1,h2,h3,h4,h5 {
     overflow-y: auto;
     background: #777;
     width: 14em;
+}
+
+.wrapper-search-content {
+    margin: 5.5em 3.5em 3.5em 16em;
+
 }
