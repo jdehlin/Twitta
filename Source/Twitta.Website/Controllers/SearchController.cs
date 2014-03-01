@@ -59,5 +59,20 @@ namespace Twitta.Website.Controllers
             _searchLogic.Delete(id);
             return RedirectToAction("Index");
         }
+
+        public ActionResult QuickCreate(string searchText)
+        {
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                var model = new SearchViewModel
+                {
+                    AnyOfTheseWords = searchText.Trim().ToLower(),
+                    Title = searchText.Trim().Length > 10 ? searchText.Trim().Substring(0, 7) + "..." : searchText.Trim().ToLower()
+                };
+                var entity = Mapper.Map<Search>(model);
+                _searchLogic.Insert(entity);   
+            }
+            return Content(bool.TrueString);
+        }
 	}
 }
