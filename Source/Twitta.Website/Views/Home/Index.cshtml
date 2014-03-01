@@ -32,7 +32,7 @@
                     <div class="column fourth">
                         <div class="search-result">
                             <a class="search-result-name" href="@Url.Action("SearchResults", new { id = item.SearchId })">@item.Title</a>
-                            <div class="search-result-tweet-number">A FAKE NUMBER</div>
+                            <div class="search-result-tweet-number">@item.Tweets.Count</div>
                         </div>
                     </div>
                 }

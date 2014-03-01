@@ -39,7 +39,12 @@ namespace Twitta.Website.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(_searchLogic.GetItems());
+            var model = _searchLogic.GetItems();
+            foreach (var item in model)
+            {
+                item.Tweets = _tweetsLogic.GetTweetsInDateRange(item.SearchId, DateTime.UtcNow.AddHours(-4), DateTime.UtcNow);
+            }
+            return View(model);
         }
 
         public ActionResult KeepAlive()
