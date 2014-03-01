@@ -179,6 +179,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\Content\twitta-logo.svg" />
+    <Content Include="Resources\CSS\font-awesome.css" />
+    <Content Include="Resources\CSS\font-awesome.min.css" />
+    <Content Include="Resources\CSS\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -216,11 +220,10 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutSite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Resources\Content\" />
-    <Folder Include="Resources\CSS\" />
     <Folder Include="Resources\Scripts\" />
   </ItemGroup>
   <ItemGroup>

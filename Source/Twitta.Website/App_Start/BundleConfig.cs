@@ -24,7 +24,8 @@ namespace Twitta.Website
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Resources/CSS/site.css",
+                      "~/Resources/CSS/font-awesome.css"));
         }
     }
 }
