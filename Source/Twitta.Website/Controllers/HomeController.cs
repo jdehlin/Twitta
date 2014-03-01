@@ -41,6 +41,10 @@ namespace Twitta.Website.Controllers
             return View(_searchLogic.GetItems());
         }
 
+        public ActionResult KeepAlive()
+        {
+            return View();
+        }
         public ActionResult SearchResults(int id, DateTime? startDate)
         {
             startDate = startDate ?? DateTime.UtcNow.AddHours(-1);
@@ -68,6 +72,7 @@ namespace Twitta.Website.Controllers
             return Content("done");
         }
 
+     
         public ActionResult TestSyphon()
         {
             var app = _twitterAppRepository.GetItem(1);
