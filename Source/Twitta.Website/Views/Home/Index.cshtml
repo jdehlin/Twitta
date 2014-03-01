@@ -1,8 +1,28 @@
-﻿@{
-    Layout = "~/views/shared/_LayoutSite.cshtml";
-    ViewBag.Title = "Index";
+﻿@model IEnumerable<Twitta.Website.Models.Search>
+
+@{
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+    ViewBag.Title = "Available Searches";
 }
 
 <div class="home-wrapper">
-    Hello
+
+    <div class="wrapper-twitta-logo">
+        <div class="twitta-logo"></div>
+        <div class="twitta-text">
+            Twitta
+        </div>
+    </div>
+
+    <div class="wrapper-home-search-options">
+        <h2>Available Searches</h2>
+
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><a href="@Url.Action("SearchResults", new { id = item.SearchId })">@item.Title</a></li>
+            }
+        </ul>
+    </div>
+
 </div>
