@@ -1,34 +1,55 @@
 ﻿@model dynamic
 
 @{
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
     ViewBag.Title = "Search Results";
 }
 
-<h2>Search Results</h2>
+<div class="header">
+    <a class="home-button" href="#">
+        <span class="twitta-logo"></span>
+        <span class="label">Twitta</span>
+    </a>
 
-<ul id="results">
-    <!-- ko foreach: words -->
-    <li>
-        <a href="#" data-bind="click: getExpandedTweets, text: word, attr: { href: getExpandedTweetsUrl }"></a>:
-        <!--ko text: total --><!--/ko-->
-    </li>
-    <!-- /ko -->
-</ul>
+    <button class="button-graph-transparent">
+        <span class="fa fa-bar-chart-o"></span>
+        <span class="label">Graph 1</span>
+    </button>
 
-<ul id="expandedTweetResults">
-    <!-- ko foreach: tweets -->
-    <li>
-        <ul>
-            <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
-            <li data-bind="text: 'User.Text:' + Text"></li>
-            <li data-bind="text: 'User.Date:' + CreatedDate"></li>
-            <li data-bind="text: 'ID:' + Id"></li>
-            <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
-        </ul>
-        
-    </li>
-    <!-- /ko -->
-</ul>
+    @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
+</div>
+
+<div class="wrapper-keywords">
+    <ul id="results">
+        <!-- ko foreach: words -->
+        <li>
+            <a href="#" data-bind="click: getExpandedTweets, text: word, attr: { href: getExpandedTweetsUrl }"></a>:
+            <!--ko text: total --><!--/ko-->
+        </li>
+        <!-- /ko -->
+    </ul>
+</div>
+
+<div class="wrapper-search-content">
+
+    <h2>Search Results</h2>
+
+    <ul id="expandedTweetResults">
+        <!-- ko foreach: tweets -->
+        <li>
+            <ul>
+                <li data-bind="text: 'User.ScreenName:' + TwitterUserId"></li>
+                <li data-bind="text: 'User.Text:' + Text"></li>
+                <li data-bind="text: 'User.Date:' + CreatedDate"></li>
+                <li data-bind="text: 'ID:' + Id"></li>
+                <li><a href="#" data-bind="attr: { href: url }">Go to tweet</a></li>
+            </ul>
+
+        </li>
+        <!-- /ko -->
+    </ul>
+
+</div>
 
 <script>
     function viewModel(model) {
