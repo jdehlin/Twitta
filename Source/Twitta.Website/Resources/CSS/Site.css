@@ -196,7 +196,7 @@ h1,h2,h3,h4,h5 {
         height: 8em;
     }
 
-        .twitta-logo {
+        .wrapper-twitta-logo .twitta-logo {
             margin: 1.5em auto 0 auto;
             background-image: url('/Resources/Content/twitta-logo.svg'), none;
             background-size: 5em 5.125em;
@@ -204,7 +204,7 @@ h1,h2,h3,h4,h5 {
             height: 5.125em;
         }
 
-        .twitta-text {
+        .wrapper-twitta-logo .twitta-text {
             position: absolute;
             right: 0;
             bottom: -1.5em;
@@ -240,7 +240,23 @@ h1,h2,h3,h4,h5 {
 
     [class*="header"] [class*="header-home"] {
         display: inline-block;
+        width: 14em;
+        line-height: 3.5em;
     }
+
+        [class*="header-home"] .twitta-logo {
+            background-image: url('/Resources/Content/twitta-logo.svg'), none;
+            background-size: 1.875em 1.975em;
+            width: 1.875em;
+            height: 1.975em;
+        }
+
+        [class*="header-home"] .twitta-text {
+            font-family: 'Patua One', sans-serif;
+            font-size: 1em;
+            text-align: center;
+            color: #fff;
+        }
 
 .wrapper-keywords {
     position: fixed;
@@ -249,5 +265,5 @@ h1,h2,h3,h4,h5 {
     left: 0;
     overflow-y: auto;
     background: #777;
-    width: 12em;
+    width: 14em;
 }
