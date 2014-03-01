@@ -5,11 +5,15 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
+using TweetSharp;
 using Twitta.Website.Controllers;
 using Twitta.Website.DependencyResolution;
 using StackExchange.Profiling;
 using StructureMap;
+using Twitta.Website.Models;
 using Twitta.Website.Quartz;
+using Twitta.Website.ViewModels;
 
 namespace Twitta.Website
 {
@@ -27,6 +31,13 @@ namespace Twitta.Website
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Mapper.CreateMap<TwitterStatus, Tweet>();
+            Mapper.CreateMap<Tweet, TwitterStatus>();
+            Mapper.CreateMap<TwitterUser, User>();
+            Mapper.CreateMap<User, TwitterUser>();
+            Mapper.CreateMap<SearchViewModel, Search>();
+            Mapper.CreateMap<Search, SearchViewModel>();
 
             Scheduler.Init();
         }
