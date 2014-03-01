@@ -151,6 +151,8 @@
       <DependentUpon>ModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TestTable.cs" />
+    <Compile Include="Quartz\Scheduler.cs" />
+    <Compile Include="Quartz\SearchJob.cs" />
     <Compile Include="RepositoryInterfaces\ITestTableRepository.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
     <Compile Include="Logic\Implementations\TestTableLogic.cs" />
