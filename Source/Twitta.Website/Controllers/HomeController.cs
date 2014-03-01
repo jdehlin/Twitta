@@ -94,6 +94,7 @@ namespace Twitta.Website.Controllers
             {
                 i.TwitterUserId,
                 TwitterUserScreenName = i.User.ScreenName,
+                TwitterUserProfileImage = i.User.ProfileImageUrl,
                 i.Text,
                 CreatedDate = i.CreatedDate.ToString("MM/dd/yy H:mm tt"),
                 id = i.Id.ToString()
