@@ -186,3 +186,17 @@ h1,h2,h3,h4,h5 {
 
 
 /* TWITTA SEARCH RESULT PAGE CONTENT */
+
+
+
+[class*="header"] {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3.5em;
+}
+
+    [class*="header"] [class*="header-home"] {
+        display: inline-block;
+    }
