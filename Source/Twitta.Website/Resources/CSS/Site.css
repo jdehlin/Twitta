@@ -443,6 +443,16 @@ h1,h2,h3,h4,h5 {
             color: #fff;
         }
 
+.slider-bar {
+    position: fixed;
+    top: 3.5em;
+    right: 0;
+    left: 14em;
+    padding: 1em 2em;
+    background: #fff;
+    height: 4em;
+}
+
 h2.title-keyword-results {
     padding: 1em 0;
 }
@@ -501,7 +511,7 @@ h2.title-keyword-results {
                 }
 
 .wrapper-search-content {
-    margin: 5.5em 3.5em 3.5em 16em;
+    margin: 7.5em 3.5em 3.5em 16em;
 
 }
 
@@ -524,7 +534,19 @@ h2.title-keyword-results {
             padding: 0 0 1em 0;
         }
 
+        span.tweet-image {
+            display: inline-block;
+            width: 2em;
+            height: 2em;
+        }
+
+            .tweet-image img {
+                border-radius: 50%;
+                width: 100%;
+            }
+
         .tweet-username {
+            display: inline-block;
             padding: 0 0 .5em 0;
             color: #2980b9;
         }
