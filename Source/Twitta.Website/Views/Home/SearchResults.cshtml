@@ -65,7 +65,7 @@
         <!-- ko foreach: tweets -->
         <li class="keyword-tweet-list-item">
             <span class="tweet-image">
-                <img src="http://pbs.twimg.com/profile_images/428678356461449216/3xf7EhLi_normal.jpeg" />
+                <img data-bind="attr: {src:TwitterUserProfileImage}" />
             </span>
             <h4 class="tweet-username" data-bind="text: ScreenName"></h4>
             <span class="tweet-text" data-bind="text: Text"></span>
@@ -170,6 +170,8 @@
         var self = {};
         self.TwitterUserId = item.TwitterUserId;
         self.ScreenName = item.TwitterUserScreenName;
+        self.TwitterUserProfileImage = item.TwitterUserProfileImage;
+        console.log(self.TwitterUserProfileImage);
         self.Text = item.Text;
         debugger;
         self.CreatedDate = item.CreatedDate;
