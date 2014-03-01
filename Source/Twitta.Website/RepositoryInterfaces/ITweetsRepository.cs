@@ -11,6 +11,6 @@ namespace Twitta.Website.RepositoryInterfaces
         void BulkInsert(List<Tweet> tweets);
 
         List<Tweet> GetTweetsInDateRange(long searchId, DateTime startDate, DateTime endDate);
-         string GetTweetTextInDateRange(long searchId, DateTime startDate, DateTime endDate);
+        string GetTweetTextInDateRange(long searchId, DateTime startDate, DateTime endDate);
     }
 }

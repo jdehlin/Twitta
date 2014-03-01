@@ -6,7 +6,6 @@ using AutoMapper;
 using StackExchange.Profiling;
 using TweetSharp;
 using Twitta.Website.Logic;
-using Twitta.Website.Logic.Implementations;
 using Twitta.Website.Models;
 using Twitta.Website.RepositoryInterfaces;
 
@@ -40,9 +39,6 @@ namespace Twitta.Website.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var sentence = "Marko sucks at programming.";
-            var analyzer = new SentimentAnalyzer();
-            ViewBag.Sentiment = analyzer.Analyze(sentence);
             return View(_searchLogic.GetItems());
         }
 
@@ -59,8 +55,8 @@ namespace Twitta.Website.Controllers
             endDate = endDate ?? DateTime.UtcNow;
             var profiler = MiniProfiler.Current; // it's ok if this is null
 
-             //tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
-             tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime) startDate, (DateTime) endDate);
+            //tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
+            tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime)startDate, (DateTime)endDate);
             using (profiler.Step("3"))
             {
                 //var temp = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList());
@@ -68,7 +64,7 @@ namespace Twitta.Website.Controllers
                 profiler.Step("4");
                 var temp2 = temp.Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value);
                 profiler.Step("5");
-                fancyWordStats=temp2.Select(i => new { word = i.Key, total = i.Value, searchId = id});  
+                fancyWordStats = temp2.Select(i => new { word = i.Key, total = i.Value, searchId = id });
                 profiler.Step("6");
             }
 
@@ -86,7 +82,17 @@ namespace Twitta.Website.Controllers
             endDate = endDate ?? DateTime.UtcNow;
             var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate)
                 .Where(t => t.Text.ToLower().Contains(word.ToLower()));
-            return Json(tweets);
+
+            var minimalTweets = tweets.Select(i => new
+            {
+                i.TwitterUserId,
+                TwitterUserScreenName = i.User.ScreenName,
+                i.Text,
+                i.CreatedDate,
+                i.Id
+            });
+
+            return Json(minimalTweets);
         }
 
         public ActionResult TestPersist()
@@ -98,7 +104,7 @@ namespace Twitta.Website.Controllers
             return Content("done");
         }
 
-     
+
         public ActionResult TestSyphon()
         {
             var app = _twitterAppRepository.GetItem(1);
