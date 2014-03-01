@@ -159,10 +159,24 @@
     <Compile Include="Models\TestTable.cs" />
     <Compile Include="Quartz\Scheduler.cs" />
     <Compile Include="Quartz\SearchJob.cs" />
-    <Compile Include="RepositoryInterfaces\ITestTableRepository.cs" />
+    <Compile Include="Repositories\ApiAccessHistoryLogRepository.cs" />
+    <Compile Include="Repositories\IgnoreWordRepository.cs" />
+    <Compile Include="Repositories\SearchHistoryLogRepository.cs" />
+    <Compile Include="Repositories\SearchRepository.cs" />
+    <Compile Include="Repositories\TweetsRepository.cs" />
+    <Compile Include="Repositories\TwitterAppRepository.cs" />
+    <Compile Include="Repositories\TwitterSearchRepository.cs" />
+    <Compile Include="Repositories\UsersRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IApiAccessHistoryLogRepository.cs" />
+    <Compile Include="RepositoryInterfaces\IIgnoreWordRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ISearchHistoryLogRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ISearchRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ITweetsRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ITwitterAppRepository.cs" />
+    <Compile Include="RepositoryInterfaces\ITwitterSearchRespository.cs" />
+    <Compile Include="RepositoryInterfaces\IUsersRepository.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
     <Compile Include="Logic\Implementations\TestTableLogic.cs" />
-    <Compile Include="Repositories\TestTableRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\TestTable.cs" />
   </ItemGroup>
