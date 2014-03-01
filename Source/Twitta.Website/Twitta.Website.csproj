@@ -292,6 +292,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\Content\twitta-bg.jpg" />
     <Content Include="Resources\Content\twitta-logo.svg" />
     <Content Include="Resources\CSS\font-awesome.css" />
     <Content Include="Resources\CSS\font-awesome.min.css" />
