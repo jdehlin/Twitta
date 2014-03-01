@@ -83,6 +83,40 @@ namespace Twitta.Website.Controllers
             return View("SearchResults", fancyWordStats.ToList());
         }
 
+        public ActionResult Words(int id, DateTime? startDate, DateTime? endDate)
+        {
+            //List<Tweet> tweets;
+            string tweets;
+            IEnumerable<dynamic> fancyWordStats;
+
+            startDate = startDate == null ? DateTime.UtcNow.AddHours(-4) : startDate.Value.ToUniversalTime();
+            endDate = endDate == null ? DateTime.UtcNow : endDate.Value.ToUniversalTime();
+
+            var profiler = MiniProfiler.Current; // it's ok if this is null
+
+            //tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, DateTime.UtcNow);
+            tweets = _tweetsRepository.GetTweetTextInDateRange(id, (DateTime)startDate, (DateTime)endDate);
+            using (profiler.Step("3"))
+            {
+                //var temp = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList());
+                var temp = _tweetProcessor.WordCountStats(tweets);
+                profiler.Step("4");
+                var temp2 = temp.Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value);
+                profiler.Step("5");
+                fancyWordStats = temp2.Select(i => new { word = i.Key, total = i.Value, searchId = id });
+                profiler.Step("6");
+            }
+
+            //var tweets = _tweetsRepository.GetTweetsInDateRange(id, (DateTime)startDate, (DateTime)endDate);
+            //var fancyWordStats = _tweetProcessor.WordCountStats(tweets.Select(st => st.Text).ToList())
+            //    .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
+            //    .Select(i => new { word = i.Key, total = i.Value, searchId = id });
+
+            ViewBag.SearchId = id;
+
+            return Json(fancyWordStats.ToList());
+        }
+
         public JsonResult RecentTweets(int id, string word, DateTime? startDate, DateTime? endDate)
         {
             startDate = startDate ?? DateTime.UtcNow.AddHours(-4);
