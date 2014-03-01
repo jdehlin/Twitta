@@ -238,7 +238,7 @@ h1,h2,h3,h4,h5 {
     height: 3.5em;
 }
 
-    [class*="header"] [class*="header-home"] {
+    [class*="header"] [class*="home-button"] {
         display: inline-block;
         width: 14em;
         line-height: 3.5em;
