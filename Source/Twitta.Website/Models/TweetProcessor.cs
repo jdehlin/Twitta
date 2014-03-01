@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Serialization;
 using StackExchange.Profiling;
 using StructureMap;
 using Twitta.Website.Logic;
@@ -15,58 +16,59 @@ namespace Twitta.Website.Models
 
         public Dictionary<string, int> WordCountStats(string tweets)
         {
-            var profiler = MiniProfiler.Current;
-            profiler.Step("WC1");
             //every word in all tweets found
             string txt = tweets;
-            profiler.Step("WC2");
             //Convert the string into an array of words spliting on comma and space
             string[] source = txt.ToLowerInvariant().Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-            profiler.Step("WC3");
             //get a distinct list of those words
-            var distinctWords = new List<string>(source.Distinct());
-            profiler.Step("WC4");
-            //make a dictionary of word and usage frequency
-            var ignoreWordLogic = ObjectFactory.GetInstance<IIgnoreWordLogic>();
-            profiler.Step("WC5");
-            _stopwords.AddRange(ignoreWordLogic.GetItems().Select(w => w.WordText).ToList());
-            profiler.Step("WC6");
-            return distinctWords.Except(_stopwords).ToDictionary(word => word, word => Wordcount(word, source));
+
+            var wordcountlist = new Dictionary<string, int>();
+            foreach (var word in source)
+            {
+                if (_stopwords.Contains(word))
+                    continue;
+                if (!wordcountlist.ContainsKey(word))
+                {
+                    wordcountlist.Add(word, 1);
+                }
+                else
+                {
+                    wordcountlist[word] = wordcountlist[word] + 1;
+                }
+            }
+            return wordcountlist;
         }
 
 
+        [Obsolete]
         public Dictionary<string, int> WordCountStats(List<string> tweets)
         {
             var profiler = MiniProfiler.Current;
             profiler.Step("WC1");
             //every word in all tweets found
             string txt = tweets.Aggregate(string.Empty, (current, t) => current + t);
-            profiler.Step("WC2");
-            //Convert the string into an array of words spliting on comma and space
-            string[] source = txt.ToLowerInvariant().Split(new char[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries);
-            profiler.Step("WC3");
+
+            string[] source = txt.ToLowerInvariant().Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
             //get a distinct list of those words
-            var distinctWords = new List<string>(source.Distinct());
-            profiler.Step("WC4");
-            //make a dictionary of word and usage frequency
-            var ignoreWordLogic = ObjectFactory.GetInstance<IIgnoreWordLogic>();
-            profiler.Step("WC5");
-            _stopwords.AddRange(ignoreWordLogic.GetItems().Select(w => w.WordText).ToList());
-            profiler.Step("WC6");
-            return distinctWords.Except(_stopwords).ToDictionary(word => word, word => Wordcount(word, source));
+
+            var wordcountlist = new Dictionary<string, int>();
+            foreach (var word in source)
+            {
+                if (_stopwords.Contains(word))
+                    continue;
+                if (!wordcountlist.ContainsKey(word))
+                {
+                    wordcountlist.Add(word, 1);
+                }
+                else
+                {
+                    wordcountlist[word] = wordcountlist[word] + 1;
+                }
+            }
+            return wordcountlist;
+
         }
 
-        private int Wordcount(string searchTerm, string[] wordlist)
-        {
-                // Create and execute the query. It executes immediately  
-                // because a singleton value is produced. 
-                // Use ToLowerInvariant to match "data" and "Data"  
-                var matchQuery = from word in wordlist
-                                 where word == searchTerm
-                                 select word;
-
-                // Count the matches. 
-                return matchQuery.Count();
-        }
+        
     }
 }
