@@ -9,6 +9,7 @@ using Twitta.Website.Controllers;
 using Twitta.Website.DependencyResolution;
 using StackExchange.Profiling;
 using StructureMap;
+using Twitta.Website.Quartz;
 
 namespace Twitta.Website
 {
@@ -26,6 +27,8 @@ namespace Twitta.Website
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Scheduler.Init();
         }
 
 
