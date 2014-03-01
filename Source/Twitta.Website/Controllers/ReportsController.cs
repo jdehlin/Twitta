@@ -2,9 +2,8 @@
 using System.Web.Mvc;
 using Twitta.Website.Logic;
 using Twitta.Website.Models;
-using Twitta.Website.ViewModels;
 
-namespace Twitta.Website.Controllers
+namespace TwitterSandbox.Website.Controllers
 {
     public class ReportsController : Controller
     {
@@ -21,18 +20,18 @@ namespace Twitta.Website.Controllers
         //
         // GET: /Reports/Search/5
 
-        public ActionResult TempGraphs(long id)
-        {
-            var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetList(id);
-            var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).Where(w => w.Value > 1).OrderByDescending(w => w.Value).Take(20);
-            var viewModel = new SearchReportView
-            {
-                Search = _searchLogic.GetItem(id),
-                Data = words
-            };
-            return View(viewModel);
-        }
+        //public ActionResult TempGraphs(long id)
+        //{
+        //    var processor = new TweetProcessor();
+        //    var tweets = _tweetsLogic.GetList(id);
+        //    var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).Where(w => w.Value > 1).OrderByDescending(w => w.Value).Take(20);
+        //    var viewModel = new SearchReportView
+        //    {
+        //        Search = _searchLogic.GetItem(id),
+        //        Data = words
+        //    };
+        //    return View(viewModel);
+        //}
 
         //
         // GET: /Reports/BasicWordCountData/5
