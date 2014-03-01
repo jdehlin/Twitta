@@ -1,0 +1,92 @@
+﻿@model Twitta.Website.ViewModels.SearchViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>New Search</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllOfTheseWords, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AllOfTheseWords)
+                @Html.ValidationMessageFor(model => model.AllOfTheseWords)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThisExactPhrase, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ThisExactPhrase)
+                @Html.ValidationMessageFor(model => model.ThisExactPhrase)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnyOfTheseWords, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnyOfTheseWords)
+                @Html.ValidationMessageFor(model => model.AnyOfTheseWords)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NoneOfTheseWords, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NoneOfTheseWords)
+                @Html.ValidationMessageFor(model => model.NoneOfTheseWords)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NearThisPlace, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NearThisPlace)
+                @Html.ValidationMessageFor(model => model.NearThisPlace)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Radius, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Radius)
+                @Html.ValidationMessageFor(model => model.Radius)
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResultType, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ResultType, Model.ResultTypeOptions, "-- SELECT --")
+                @Html.ValidationMessageFor(model => model.Radius)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
