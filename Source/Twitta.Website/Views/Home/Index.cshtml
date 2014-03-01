@@ -14,17 +14,52 @@
         </div>
     </div>
 
-    <div class="wrapper-home-search-options">
-        <h2>Available Searches</h2>
+    <div class="wrapper-new-search-term">
+        <a href="#" class="add-search-option">
+            <span class="fa fa-plus-circle"></span>
+        </a>
+        <input type="text" placeholder="Add a new search filter" />
+    </div>
 
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li><a href="@Url.Action("SearchResults", new { id = item.SearchId })">@item.Title</a></li>
-            }
-        </ul>
+    <div class="wrapper-home-search-options">
+
+        <div class="container">
+
+            <div class="row clear-fix">
+
+                @foreach (var item in Model)
+                {
+                    <div class="column fourth">
+                        <div class="search-result">
+                            <a class="search-result-name" href="@Url.Action("SearchResults", new { id = item.SearchId })">@item.Title</a>
+                            <div class="search-result-tweet-number">A FAKE NUMBER</div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
     </div>
     
     <span>@ViewBag.Sentiment</span>
+
+    <script>
+        $(document).ready(function () {
+            $('.add-search-option').on('click', function () {
+                if ($(this).parent().hasClass('active')) {
+                    $(this).dequeue();
+                    $(this).parent().removeClass('active');
+                    $(this).siblings('input').removeClass('active');
+                } else {
+                    $(this).parent().addClass('active');
+                    $(this).delay(250).queue(function () {
+                        $(this).siblings('input').addClass('active').dequeue();
+                    });
+                }
+            });
+        });
+    </script>
 
 </div>
