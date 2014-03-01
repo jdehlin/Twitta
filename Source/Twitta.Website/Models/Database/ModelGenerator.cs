@@ -141,4 +141,27 @@ namespace Twitta.Website.Models
 		public virtual string TimeZone { get; set; }
 	}
 
+    /// <summary>
+    /// A class which represents the Tweets table.
+    /// </summary>
+	[Table("Tweets")]
+	public partial class Tweet : BaseModel
+	{
+		public virtual long TweetId { get; set; }
+		public virtual string IdStr { get; set; }
+		public virtual long? TwitterUserId { get; set; }
+		public virtual string InReplyToScreenName { get; set; }
+		public virtual long? InReplyToStatusId { get; set; }
+		public virtual long InReplyToUserId { get; set; }
+		public virtual bool IsFavorited { get; set; }
+		public virtual bool IsTruncated { get; set; }
+		public virtual string Source { get; set; }
+		public virtual string Text { get; set; }
+		public virtual string Language { get; set; }
+		public virtual bool? IsPossiblySensitive { get; set; }
+		public virtual int RetweetCount { get; set; }
+		public virtual DateTime CreatedDate { get; set; }
+		public virtual long? SearchId { get; set; }
+	}
+
 }
