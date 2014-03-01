@@ -31,7 +31,7 @@
     @Html.ActionLink("View Errors", "Exceptions", "Error", new { @class = "button-graph-transparent" })
 </div>
 
-<div class="wrapper-keywords">
+<div class="wrapper-keywords" id="keywordResults">
     <ul id="results" class="keyword-results">
         <!-- ko foreach: words -->
         <li class="keyword-list-item">
@@ -50,26 +50,40 @@
     <div id="advancedWordCountChart" style="width: 75%; height: 500px; margin: 0 ; display:none"></div>    
     <div id="sentimentChart" style="width: 75%; height: 500px; margin: 0 ; display:none"></div>    
 
-    <p>
-        <label for="amount">Range:</label>
-        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-    </p>
+    <div class="slider-bar">
+        <p>
+            <label for="amount">Range:</label>
+            <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
 
-    <div id="slider-range" style="width:50%"></div>
+        <div id="slider-range" style="width:50%"></div>
+    </div>
+
     <h2 class="title-keyword-results">Keyword Results</h2>
 
     <ul id="expandedTweetResults" class="keyword-tweets">
         <!-- ko foreach: tweets -->
         <li class="keyword-tweet-list-item">
+            <span class="tweet-image">
+                <img src="http://pbs.twimg.com/profile_images/428678356461449216/3xf7EhLi_normal.jpeg" />
+            </span>
             <h4 class="tweet-username" data-bind="text: ScreenName"></h4>
             <span class="tweet-text" data-bind="text: Text"></span>
             <span class="tweet-date" data-bind="text: CreatedDate"></span>
-            <a class="link-to-tweet" href="#" data-bind="attr: { href: url }">Go to tweet</a>
+            <a class="link-to-tweet" href="#" data-bind="attr: { href: url }" target="_blank">Go to tweet</a>
         </li>
         <!-- /ko -->
     </ul>
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.link-keyword').on('click', function () {
+            $('.wrapper-search-content').scrollTo('.title-keyword-results');
+        });
+    });
+</script>
 
 <script>
     $(".graph1").click(function() {
@@ -94,6 +108,11 @@
     });
 
     
+    Date.prototype.addHours = function (h) {
+        this.setHours(this.getHours() + h);
+        return this;
+    }
+
     function viewModel(model) {
         var self = {};
         self.words = ko.observableArray();
@@ -317,7 +336,7 @@
                     type: 'line',
                     name: data.words[i],
                     pointInterval: data.timeInterval,
-                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    pointStart: window.start != null ? Date.UTC(2014, 2, 01, window.start.getUTCHours(), 0, 0) : Date.UTC(2014, 2, 01, new Date().getUTCHours(), 0, 0), // TODO: Set this to the actual start of the range
                     data: data.counts[i]
                 });
             }
@@ -423,7 +442,7 @@
                     type: 'line',
                     name: data.words[i],
                     pointInterval: data.timeInterval,
-                    pointStart: window.start, // TODO: Set this to the actual start of the range
+                    pointStart: window.start != null ? Date.UTC(2014, 2, 01, window.start.getUTCHours(), 0, 0) : Date.UTC(2014, 2, 01, new Date().getUTCHours(), 0, 0), // TODO: Set this to the actual start of the range
                     data: data.counts[i]
                 });
             }
