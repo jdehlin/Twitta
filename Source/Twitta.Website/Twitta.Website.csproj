@@ -54,6 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.13\lib\net45\Dapper.dll</HintPath>
     </Reference>
@@ -68,6 +71,9 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz">
+      <HintPath>..\packages\Quartz.2.2.2\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Exceptional, Version=1.0.0.86, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -151,6 +157,8 @@
       <DependentUpon>ModelGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TestTable.cs" />
+    <Compile Include="Quartz\Scheduler.cs" />
+    <Compile Include="Quartz\SearchJob.cs" />
     <Compile Include="RepositoryInterfaces\ITestTableRepository.cs" />
     <Compile Include="Utilities\DBUtilities.cs" />
     <Compile Include="Logic\Implementations\TestTableLogic.cs" />
@@ -175,6 +183,10 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\Content\twitta-logo.svg" />
+    <Content Include="Resources\CSS\font-awesome.css" />
+    <Content Include="Resources\CSS\font-awesome.min.css" />
+    <Content Include="Resources\CSS\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -212,9 +224,11 @@
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutSite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resources\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,0 +1,148 @@
+﻿/* GRID */
+
+
+
+.container {
+    margin: 0 auto;
+    /* max-width: 48rem; */
+    width: 90%;
+}
+
+    .container.first {
+        margin-top: 11.125em;
+    }
+
+.row {
+    margin-bottom: 1rem;
+}
+
+.column {
+    float: left;
+    margin-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.column.full {
+    width: 100%;
+}
+
+.column.two-thirds {
+    width: 66.7%;
+}
+
+.column.half {
+    width: 50%;
+}
+
+.column.third {
+    width: 33.3%;
+}
+
+.column.fourth {
+    width: 24.95%;
+}
+
+.column.flow-opposite {
+    float: right;
+}
+
+.clearfix:before,.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+
+
+/* CSS CORE */
+
+
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+[class*="link"] {
+    text-decoration: none;
+}
+
+
+h1,h2,h3,h4,h5 {
+    margin: 0;
+    padding: 0 1rem;
+    font-family: 'Maven Pro', sans-serif;
+    line-height: 1em;
+}
+
+
+/* SITE STYLES */
+
+
+
+.wrapper-home-link {
+    position: fixed;
+    top: 1em;
+    left: 50%;
+    margin-left: -4em;
+    width: 8em;
+    text-align: center;
+}
+
+    .twitta-logo {
+        display: block;
+        margin: 0 auto;
+        /* background: url(../Content/go-logo-png.png); */
+        background-image: url(../Content/twitta-logo.svg), none;
+        background-size: 5em 5.125em;
+        width: 5em;
+        height: 5.125em;
+    }
+
+    .twitta-text {
+        display: block;
+        vertical-align: top;
+        font-family: 'Russo One', sans-serif;
+        font-size: 2em;
+        line-height: 1.25em;
+        color: #353535;
+    }      
+
+.site-settings {
+    position: fixed;
+    top: 3rem;
+    right: 2rem;
+    font-size: 2.5em;
+    color: #b8b8b8;
+}
+
+.filter {
+    padding: 1em 0;
+    background: #f5f5f5;
+    box-shadow: 0 7px 0 -5px rgba(0,0,0,.5);
+}
+
+
+
+/* TWITTA CORE CONTENT */
+
+
+
+[class*="wrapper"] {
+
+}
