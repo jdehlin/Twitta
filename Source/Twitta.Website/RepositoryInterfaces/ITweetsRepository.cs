@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Twitta.Website.Models;
 
 namespace Twitta.Website.RepositoryInterfaces
 {

@@ -1,4 +1,7 @@
-﻿using Twitta.Website.RepositoryInterfaces;
+﻿using System.Linq;
+using TweetSharp;
+using Twitta.Website.Models;
+using Twitta.Website.RepositoryInterfaces;
 
 namespace Twitta.Website.Repositories
 {

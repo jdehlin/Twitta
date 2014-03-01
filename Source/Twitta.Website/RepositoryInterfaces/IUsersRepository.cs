@@ -1,4 +1,6 @@
-﻿namespace Twitta.Website.RepositoryInterfaces
+﻿using Twitta.Website.Models;
+
+namespace Twitta.Website.RepositoryInterfaces
 {
     public interface IUsersRepository
     {

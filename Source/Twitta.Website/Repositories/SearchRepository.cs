@@ -2,6 +2,7 @@
 using System.Data.Common;
 using System.Linq;
 using Dapper;
+using Twitta.Website.Models;
 using Twitta.Website.RepositoryInterfaces;
 
 namespace Twitta.Website.Repositories

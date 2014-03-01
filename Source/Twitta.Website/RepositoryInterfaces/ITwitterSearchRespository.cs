@@ -1,4 +1,7 @@
-﻿namespace Twitta.Website.RepositoryInterfaces
+﻿using TweetSharp;
+using Twitta.Website.Models;
+
+namespace Twitta.Website.RepositoryInterfaces
 {
     public interface ITwitterSearchRepository
     {
