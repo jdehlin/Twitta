@@ -1,10 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
+using StackExchange.Profiling;
+using StructureMap.Query;
 using Twitta.Website.Logic;
 using Twitta.Website.Models;
 using Twitta.Website.ViewModels;
 
-namespace TwitterSandbox.Website.Controllers
+namespace Twitta.Website.Controllers
 {
     public class ReportsController : Controller
     {
@@ -23,26 +28,59 @@ namespace TwitterSandbox.Website.Controllers
 
         public ActionResult TempGraphs(long id)
         {
-            var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetList(id);
-            var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).Where(w => w.Value > 1).OrderByDescending(w => w.Value).Take(20);
-            var viewModel = new SearchReportView
-            {
-                Search = _searchLogic.GetItem(id),
-                Data = words
-            };
-            return View(viewModel);
+            return View(_searchLogic.GetItem(id));
         }
 
         //
         // GET: /Reports/BasicWordCountData/5
 
-        public JsonResult BasicWordCountData(int id)
+        public JsonResult BasicWordCountData(int id, DateTime? startRange, DateTime? endRange)
         {
+            if (startRange == null)
+                startRange = DateTime.UtcNow.AddHours(-4);
+            if (endRange == null)
+                endRange = DateTime.UtcNow;
             var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetList(id);
-            var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).Where(w => w.Value > 1).OrderByDescending(w => w.Value).Take(20).ToList();
+            var tweetsText = _tweetsLogic.GetTweetTextInDateRange(id, startRange.Value, endRange.Value);
+            var words = processor.WordCountStats(tweetsText).OrderByDescending(w => w.Value).Take(20).ToList();
             var dataModel = new { words = words.Select(w => w.Key), counts = words.Select(w => w.Value) };
+            return new JsonResult
+            {
+                Data = dataModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AdvancedWordCountData(int id, int interval, DateTime? startRange, DateTime? endRange)
+        {
+            if (startRange == null)
+                startRange = DateTime.UtcNow.AddHours(-4);
+            if (endRange == null)
+                endRange = DateTime.UtcNow;
+            var processor = new TweetProcessor();
+            var tweets = _tweetsLogic.GetTweetsInDateRange(id, startRange.Value, endRange.Value);
+            var timeInterval = (int)Math.Floor((endRange - startRange).Value.TotalMilliseconds / interval);
+            var counts = new List<List<int>>();
+            var inset = 0;
+            var texts = tweets.Where(t => t.CreatedDate > endRange.Value.AddMilliseconds(-timeInterval) && t.CreatedDate < endRange).Select(t => t.Text).ToList();
+            var result = processor.WordCountStats(texts).OrderByDescending(w => w.Value).Take(10).ToList();
+            var categories = result.Select(w => w.Key).ToList();
+            foreach (var category in categories)
+            {
+                var innerCounts = new List<int>();
+                for (var i = 0; i < interval; i++)
+                {
+                    var intervalStartRange = startRange.Value.AddMilliseconds(inset);
+                    var intervalEndRange = startRange.Value.AddMilliseconds(inset + timeInterval);
+                    texts = tweets.Where(t => t.CreatedDate > intervalStartRange && t.CreatedDate < intervalEndRange).Select(t => t.Text).ToList();
+                    var wordsDict = processor.WordCountStats(texts);
+                    innerCounts.Add(wordsDict.ContainsKey(category) ? wordsDict[category] : 0);
+                    inset += timeInterval;
+                }
+                counts.Add(innerCounts);
+                inset = 0;
+            }
+            var dataModel = new { words = categories, counts, timeInterval };
             return new JsonResult
             {
                 Data = dataModel,

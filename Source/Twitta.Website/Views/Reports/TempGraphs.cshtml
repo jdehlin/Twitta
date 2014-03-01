@@ -1,11 +1,12 @@
 ﻿@using Newtonsoft.Json
-@model Twitta.Website.ViewModels.SearchReportView
+@model Twitta.Website.Models.Search
 
 @{
-    ViewBag.Title = "Reports | " + Model.Search.Title;
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+    ViewBag.Title = "Reports | " + Model.Title;
 }
 
-<h2>Search | @Model.Search.Title</h2>
+<h2>Search | @Model.Title</h2>
 
 <a href="#" id="updateChart">Update Charts</a><br /><br />
 
@@ -14,9 +15,7 @@
 
 <script type="text/javascript">
 
-    function BasicWordCountChart() {
-        var categories = @(Html.Raw(JsonConvert.SerializeObject(Model.Data.Select(d => d.Key))));
-        var values = @(Html.Raw(JsonConvert.SerializeObject(Model.Data.Select(d => d.Value))));
+    function BasicWordCountChart(data) {
         var options = {
             chart: {
                 renderTo: 'basicWordCountChart',
@@ -29,7 +28,14 @@
                 text:''
             },
             xAxis: {
-                categories: categories
+                categories: data.words,
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px'
+                    }
+                }
             },
             yAxis: {
                 min: 0,
@@ -38,10 +44,9 @@
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
+                formater: function() {
+                    return "banana";
+                },
                 shared: true,
                 useHTML: true
             },
@@ -55,7 +60,7 @@
                 enabled: false
             },
             series: [{
-                data: values
+                data: data.counts
             }]
         };
         var chart = new Highcharts.Chart(options);
@@ -63,7 +68,7 @@
         function updateGraph() {
             //ajax calls
             $.ajax({
-                url: '@Url.Action("BasicWordCountData", new { id = Model.Search.SearchId })',
+                url: '@Url.Action("BasicWordCountData", new { id = Model.SearchId })',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
@@ -79,7 +84,17 @@
         });
     }
 
-    function AdvancedWordCountChart() {
+    function AdvancedWordCountChart(data) {
+        var serieses = new Array();
+        for (var i = 0; i < data.counts.length; i++) {
+            serieses.push({
+                type: 'line',
+                name: data.words[i],
+                pointInterval: data.timeInterval,
+                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0), // TODO: Set this to the actual start of the range
+                data: data.counts[i]
+            });
+        }
         var options = {
             chart: {
                 renderTo: 'advancedWordCountChart',
@@ -133,43 +148,18 @@
                     threshold: null
                 }
             },
-            series: [{
-                type: 'line',
-                name: 'bayer',
-                pointInterval: 3600 * 1000,
-                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
-                data: [
-                    0.8446,0.8445,0.8444,0.8451,1.4418,1.7264
-                ]
-            }, {
-                type: 'line',
-                name: 'pharmacy',
-                pointInterval: 3600 * 1000,
-                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
-                data: [
-                    0.8946,0.8045,0.8444,0.6451,1.2418,1.9264
-                ]
-            }, {
-                type: 'line',
-                name: 'ipo',
-                pointInterval: 3600 * 1000,
-                pointStart: Date.UTC(2014, 02, 28, 9, 0, 0),
-                data: [
-                    0.3946,0.6045,0.9444,1.6451,2.4418,3.6264
-                ]
-            }]
+            series: serieses
         };
         var chart = new Highcharts.Chart(options);
 
         function updateGraph() {
             //ajax calls
             $.ajax({
-                url: '@Url.Action("BasicWordCountData", new { id = Model.Search.SearchId })',
+                url: '@Url.Action("AdvancedWordCountData", new { id = Model.SearchId, interval = 6 })',
                 type: 'GET',
                 dataType: 'json',
                 success: function(response) {
-                    chart.xAxis[0].setCategories(response.words);
-                    chart.series[0].setData(response.counts);
+                    console.log(response);
                 }
             });
         }
@@ -180,7 +170,21 @@
         });
     }
 
-    BasicWordCountChart();
-    AdvancedWordCountChart();
+    
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("BasicWordCountData", new { id = Model.SearchId })',
+        success: function (response) {
+            BasicWordCountChart(response);
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("AdvancedWordCountData", new { id = Model.SearchId, interval = 6 })',
+        success: function(response) {
+            AdvancedWordCountChart(response);
+        }
+    });
+    
 
 </script>
