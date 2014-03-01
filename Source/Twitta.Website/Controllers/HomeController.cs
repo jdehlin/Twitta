@@ -78,7 +78,9 @@ namespace Twitta.Website.Controllers
             //    .Where(i => i.Value > 2 && i.Key.Length > 2).OrderByDescending(f => f.Value)
             //    .Select(i => new { word = i.Key, total = i.Value, searchId = id });
 
-            return View("SearchResults", fancyWordStats);
+            ViewBag.SearchId = id;
+
+            return View("SearchResults", fancyWordStats.ToList());
         }
 
         public JsonResult RecentTweets(int id, string word, DateTime? startDate, DateTime? endDate)
@@ -94,7 +96,7 @@ namespace Twitta.Website.Controllers
                 TwitterUserScreenName = i.User.ScreenName,
                 TwitterUserProfileImage = i.User.ProfileImageUrl,
                 i.Text,
-                i.CreatedDate,
+                CreatedDate = i.CreatedDate.ToString("MM/dd/yy H:mm tt"),
                 id = i.Id.ToString()
             });
 

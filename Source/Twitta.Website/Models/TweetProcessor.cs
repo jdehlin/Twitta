@@ -42,7 +42,6 @@ namespace Twitta.Website.Models
         public Dictionary<string, int> WordCountStats(List<string> tweets)
         {
             var profiler = MiniProfiler.Current;
-            profiler.Step("WC1");
             //every word in all tweets found
             string txt = tweets.Aggregate(string.Empty, (current, t) => current + t);
 
