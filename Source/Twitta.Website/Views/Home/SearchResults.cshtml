@@ -41,6 +41,7 @@
 
         self.loadTweets = function (url) {
             $.post(url, function (response) {
+                self.tweets([]);
                 response.forEach(function (item) {
                     self.tweets.push(tweet(item));
                 });
