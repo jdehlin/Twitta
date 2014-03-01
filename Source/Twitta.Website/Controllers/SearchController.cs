@@ -67,7 +67,7 @@ namespace Twitta.Website.Controllers
                 var model = new SearchViewModel
                 {
                     AnyOfTheseWords = searchText.Trim().ToLower(),
-                    Title = searchText.Trim().ToLower()
+                    Title = searchText.Trim().Length > 10 ? searchText.Trim().Substring(0, 7) + "..." : searchText.Trim().ToLower()
                 };
                 var entity = Mapper.Map<Search>(model);
                 _searchLogic.Insert(entity);   
