@@ -39,8 +39,6 @@ namespace Twitta.Website.Models
             return wordcountlist;
         }
 
-
-        [Obsolete]
         public Dictionary<string, int> WordCountStats(List<string> tweets)
         {
             var profiler = MiniProfiler.Current;

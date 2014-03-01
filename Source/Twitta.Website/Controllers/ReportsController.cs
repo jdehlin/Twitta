@@ -41,8 +41,8 @@ namespace Twitta.Website.Controllers
             if (endRange == null)
                 endRange = DateTime.UtcNow;
             var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetTweetsInDateRange(id, startRange.Value, endRange.Value);
-            var words = processor.WordCountStats(tweets.Select(t => t.Text).ToList()).OrderByDescending(w => w.Value).Take(20).ToList();
+            var tweetsText = _tweetsLogic.GetTweetTextInDateRange(id, startRange.Value, endRange.Value);
+            var words = processor.WordCountStats(tweetsText).OrderByDescending(w => w.Value).Take(20).ToList();
             var dataModel = new { words = words.Select(w => w.Key), counts = words.Select(w => w.Value) };
             return new JsonResult
             {
@@ -58,7 +58,7 @@ namespace Twitta.Website.Controllers
             if (endRange == null)
                 endRange = DateTime.UtcNow;
             var processor = new TweetProcessor();
-            var tweets = _tweetsLogic.GetList(id);
+            var tweets = _tweetsLogic.GetTweetsInDateRange(id, startRange.Value, endRange.Value);
             var timeInterval = (int)Math.Floor((endRange - startRange).Value.TotalMilliseconds / interval);
             var counts = new List<List<int>>();
             var inset = 0;
