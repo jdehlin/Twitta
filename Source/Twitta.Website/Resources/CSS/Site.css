@@ -37,6 +37,10 @@ input[type="submit"] {
         text-decoration: none;
     }
 
+    [class*="button"]:focus {
+        outline: none;
+    }
+
     [class*="button"][class*="-submit"] {
         background: #27ae60;
     }
