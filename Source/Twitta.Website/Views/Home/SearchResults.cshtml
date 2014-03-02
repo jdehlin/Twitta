@@ -324,7 +324,7 @@
 
         self.updateGraph = function() {
             $.ajax({
-                url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 6 })',
+                url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 60 })',
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -430,7 +430,7 @@
 
         self.updateGraph = function() {
             $.ajax({
-                url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 6 })',
+                url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 60 })',
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
@@ -482,14 +482,14 @@
     });
     $.ajax({
         type: 'GET',
-        url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 8 })',
+        url: '@Url.Action("AdvancedWordCountData", "Reports", new { id = ViewBag.SearchId, interval = 60 })',
         success: function(response) {
             window.advanced = AdvancedWordCountChart(response);
         }
     });
     $.ajax({
         type: 'GET',
-        url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 8 })',
+        url: '@Url.Action("SentimentData", "Reports", new { id = ViewBag.SearchId, interval = 60 })',
         success: function(response) {
             window.sentiment = SentimentChart(response);
         }
